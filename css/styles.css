@@ -45,7 +45,7 @@ body {
   text-align: center;
 }
 
-#cj {
+#cj p {
 	font-size: 3.75vw;
 	letter-spacing: 0.35vw;
 	
@@ -56,7 +56,7 @@ body {
             animation: fadein 2s;
 }
 
-#com {
+#com p {
 	font-size: 2.75vw;
 	margin-left: -12px;
 	letter-spacing: -0.2vw;
