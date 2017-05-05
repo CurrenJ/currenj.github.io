@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#cj").fadeIn("fast");
-    $("#com").fadeIn("slow");
+    $("#cj").hide().fadeIn("fast");
+    $("#com").hide().fadeIn("slow");
     console.log("hello, world!");
 });
