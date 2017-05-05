@@ -1,4 +1,4 @@
 $(document).ready(function() {
-    $("#cj").hide().fadeIn("fast");
-    $("#com").hide().fadeIn("slow");
+    $("#cj").hide().fadeIn(2000);
+    $("#com").hide().fadeIn(4000);
 });
