@@ -1,5 +1,8 @@
 $(document).ready(function() {   
-    $.when( $("#cj").hide().fadeIn(1500) ).done(function() {
-        $("#com").hide().fadeIn(4000);
+    $("#cj").hide();
+    $("#com").hide();
+    
+    $.when( $("#cj").fadeIn(1500) ).done(function() {
+        $("#com").fadeIn(4000);
     });
 });
