@@ -56,6 +56,10 @@ body {
 	letter-spacing: -0.2vw;
 }
 
+#endo{
+	font-size: 4.0vw;
+}
+
 .center {
 	position: absolute;
     margin: auto;
