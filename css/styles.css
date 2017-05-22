@@ -124,6 +124,7 @@ p {
   display: inline-block;
   height: 12vw;
   margin: 1rem;
+  margin-top: 0.5rem;
   position: relative;
   width: 40vw;
 }
