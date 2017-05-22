@@ -118,6 +118,16 @@ p {
 	width: 100%;
 }
 
+.card5 {
+  background: #ECF0F1;
+  border-radius: 2px;
+  display: inline-block;
+  height: 14vw;
+  margin: 1rem;
+  position: relative;
+  width: 40vw;
+}
+
 .card3 {
   background: #ECF0F1;
   border-radius: 2px;
