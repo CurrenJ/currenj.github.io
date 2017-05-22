@@ -118,7 +118,7 @@ p {
 	width: 100%;
 }
 
-.card6 div {
+.card6 {
   background: #ECF0F1;
   border-radius: 2px;
   display: inline-block;
@@ -129,9 +129,7 @@ p {
 }
 
 #laz {
-  font-size: 3vw;
-	font-weight: 400;
-	font-family: 'Open Sans', sans-serif;
+
 }
 
 .card3 {
