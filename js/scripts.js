@@ -1,7 +1,7 @@
 $(document).ready(function() {   
     $("#cj").hide();
-    $("#com").css('visibility','hidden')
+    $("#com").css('opacity','0')
     $.when( $("#cj").fadeIn(1500) ).done(function() {
-        $("#com").fadeIn(4000);
+        $("#com").fadeTo(4000, 1);
     });
 });
