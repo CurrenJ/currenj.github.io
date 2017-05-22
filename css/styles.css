@@ -122,10 +122,16 @@ p {
   background: #ECF0F1;
   border-radius: 2px;
   display: inline-block;
-  height: 14vw;
+  height: 6vw;
   margin: 1rem;
   position: relative;
   width: 40vw;
+}
+
+.card6 p {
+  font-size: 1.6vw;
+	font-weight: 400;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .card3 {
