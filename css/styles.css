@@ -122,14 +122,16 @@ p {
   background: #ECF0F1;
   border-radius: 2px;
   display: inline-block;
-  height: 2vw;
+  height: 6vw;
   margin: 1rem;
   position: relative;
   width: 40vw;
 }
 
 #laz {
-
+	font-size: 3vw;
+	font-weight: 300;
+	font-family: 'Muli', sans-serif;
 }
 
 .card3 {
