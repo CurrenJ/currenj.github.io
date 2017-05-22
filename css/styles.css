@@ -123,8 +123,8 @@ p {
   border-radius: 2px;
   display: inline-block;
   height: 12vw;
-  margin: 0rem;
-  margin-top: 0.5rem;
+  margin-top: 0rem;
+  margin-bottom 1rem;
   position: relative;
   width: 40vw;
 }
