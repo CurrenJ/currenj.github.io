@@ -7,8 +7,8 @@ $(document).ready(function() {
     });
 });
 
-$("tr").click(function(){
-	$("this").animate({
-			backgroundColor: "#lightGreen"
+jQuery("tr").click(function(){
+	jQuery(this).animate({
+			backgroundColor: "#94fc8a"
 	}, 1500 );
 });
