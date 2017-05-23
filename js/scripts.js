@@ -6,3 +6,9 @@ $(document).ready(function() {
         $("#com").animate("left", "-10vw");
     });
 });
+
+$("tr").click(function(){
+	$("this").animate({
+			backgroundColor: "#lightGreen"
+	}, 1500 );
+});
