@@ -7,8 +7,3 @@ $(document).ready(function() {
     });
 });
 
-$("tr").click(function(){
-	$(this).animate({
-			backgroundColor: "#94fc8a"
-	}, 1500 );
-});
