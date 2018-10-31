@@ -86,3 +86,16 @@ input {
 	0% { background-position: 0% 50%; }
 	100% { background-position: 100% 50%; }
 }
+
+.relatedTerm {
+  margin-right: 8px;
+  font-size: 90%;
+  color: #484e56;
+}
+
+#relTitle {
+  margin-top: 10px;
+  border: 1px solid darkGrey;
+  border-radius: 2px;
+  padding: 5px;
+}
