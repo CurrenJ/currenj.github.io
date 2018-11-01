@@ -11,7 +11,7 @@ input {
 #header {
   width: 100%;
   height: 75px;
-  background-color: #074363;
+  background-color: #0a6291;
   border-bottom: 1px solid #09547A;
 }
 
@@ -98,4 +98,12 @@ input {
   border: 1px solid darkGrey;
   border-radius: 2px;
   padding: 5px;
+  background-color: #e6f3f7;
+}
+
+#footnote p {
+  text-align: center;
+  color: grey;
+  font-size: 12px;
+  margin-top: 5px;
 }
