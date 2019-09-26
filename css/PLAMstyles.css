@@ -9,8 +9,8 @@ body {
 #content {
 	width: 100%;
 	height: 100%;
-	background-color: white;
-	box-shadow: inset 0.1em 0.1em 50px lightGrey;
+	background-color: black;
+	box-shadow: inset 0.1em 0.1em 50px grey;
 }
 
 .logo-container {
