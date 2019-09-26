@@ -35,6 +35,24 @@ body {
 		width: 80vw;
 		height: 80vw;
 	}
+	
+	
+	#logo span {
+		font-family: 'Raleway', sans-serif;
+		font-weight: 300;
+		font-size: 7vw;
+		text-align: center;
+		
+		background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+		background-size: 400% 400%;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		
+		
+		-webkit-animation: ColorShift 15s ease infinite;
+		-moz-animation: ColorShift 15s ease infinite;
+		animation: ColorShift 15s ease infinite;
+	}
 }
 
 @media only screen and (min-device-width: 960px) {		
@@ -45,6 +63,24 @@ body {
 		
 		width: 25vw;
 		height: 25vw;
+	}
+	
+	
+	#logo span {
+		font-family: 'Raleway', sans-serif;
+		font-weight: 300;
+		font-size: 2vw;
+		text-align: center;
+		
+		background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+		background-size: 400% 400%;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		
+		
+		-webkit-animation: ColorShift 15s ease infinite;
+		-moz-animation: ColorShift 15s ease infinite;
+		animation: ColorShift 15s ease infinite;
 	}
 }
 
@@ -65,22 +101,6 @@ body {
 	align-items: center;
 }
 
-#logo span {
-    font-family: 'Raleway', sans-serif;
-	font-weight: 300;
-	font-size: 2vw;
-	text-align: center;
-	
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-	background-size: 400% 400%;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	
-	
-	-webkit-animation: ColorShift 15s ease infinite;
-	-moz-animation: ColorShift 15s ease infinite;
-	animation: ColorShift 15s ease infinite;
-}
 
 @-webkit-keyframes ColorShift {
     0%{background-position:0% 50%;}
