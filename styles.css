@@ -62,6 +62,7 @@ a:hover {
   float: left;
   height: auto;
   margin: auto;
+  padding-top: 0;
 }
 
 #title {
