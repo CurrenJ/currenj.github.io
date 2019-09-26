@@ -25,14 +25,29 @@ body {
 	align-items: center;
 }
 
-#logo-box {
-	position: fixed;
-	/* border: 1px solid lightGrey;
-	box-shadow: 0.1em 0.1em 10px #e6e6e6; */
-	
-	width: 25vw;
-	height: 25vw;
+
+@media only screen and (max-device-width: 959px) {
+	#logo-box {
+		position: fixed;
+		/* border: 1px solid lightGrey;
+		box-shadow: 0.1em 0.1em 10px #e6e6e6; */
+		
+		width: 80vw;
+		height: 80vw;
+	}
 }
+
+@media only screen and (min-device-width: 960px) {		
+	#logo-box {
+		position: fixed;
+		/* border: 1px solid lightGrey;
+		box-shadow: 0.1em 0.1em 10px #e6e6e6; */
+		
+		width: 25vw;
+		height: 25vw;
+	}
+}
+
 
 #logo {
 	border: 1px solid lightGrey;
