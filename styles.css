@@ -73,18 +73,18 @@
 @media only screen and (max-device-width: 959px) {
 	
 #randomText {
-	font-size: 2vw;
+	font-size: 2.25vw;
 	margin-top: -0.5vw;
 	color: #B8B8B8;
 }
 
 #title.curren {
-	font-size: 15vw;
+	font-size: 12.5vw;
 	color: #B8B8B8;
 }
 
 #title.jeandell {
-	font-size: 15vw;
+	font-size: 12.5vw;
 	color: #a5a5a5;
 }
 
