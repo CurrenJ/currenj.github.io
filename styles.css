@@ -21,21 +21,6 @@
 	height: 100%;
 }
 
-#title.curren {
-	font-size: 5vw;
-	color: #B8B8B8;
-}
-
-#title.jeandell {
-	font-size: 5vw;
-	color: #a5a5a5;
-}
-
-#randomText {
-	font-size: 0.75vw;
-	margin-top: -0.5vw;
-	color: #B8B8B8;
-}
 
 #bar {
 	width: auto;
@@ -49,7 +34,7 @@
 }
 
 #bar a {
-	color: #d4d4d4;
+	color: #c0c0c0;
 	text-decoration: none;
 }
 
@@ -65,7 +50,7 @@
 }
 
 #bar .bar-item a:hover {
-	color: #B8B8B8;
+	color: #adadad;
 }
 
 #bar .bar-item a:active {
@@ -85,3 +70,50 @@
 	width: 100%;
 }
 
+@media only screen and (max-device-width: 959px) {
+	
+#randomText {
+	font-size: 2.25vw;
+	margin-top: -0.5vw;
+	color: #B8B8B8;
+}
+
+#title.curren {
+	font-size: 15vw;
+	color: #B8B8B8;
+}
+
+#title.jeandell {
+	font-size: 15vw;
+	color: #a5a5a5;
+}
+
+#bar a {
+	font-size: 3.3vw;
+}
+
+}
+
+@media only screen and (min-device-width: 960px) {
+	
+#randomText {
+	font-size: 0.75vw;
+	margin-top: -0.5vw;
+	color: #B8B8B8;
+}
+
+#title.curren {
+	font-size: 5vw;
+	color: #B8B8B8;
+}
+
+#title.jeandell {
+	font-size: 5vw;
+	color: #a5a5a5;
+}
+
+#bar a {
+	font-size: 1.1vw;
+}
+
+}
