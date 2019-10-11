@@ -212,12 +212,12 @@ alert = function() {
 
 var buttonIndex = 1;
 function addEditable(){
-	var el = "<div class=\"item " + "green" + "\"><div class=\"inner\"><i><div class=\"artist\" contenteditable=\"true\">" + "artist" + "</div></i><div>&nbsp-&nbsp</div><div class=\"album\" contenteditable=\"true\">" + "album" + "</div></div>" + 
+	var el = "<div class=\"item " + "\"><div class=\"inner\"><i><div class=\"artist\" contenteditable=\"true\">" + "artist" + "</div></i><div>&nbsp-&nbsp</div><div class=\"album\" contenteditable=\"true\">" + "album" + "</div></div>" + 
 	"<div class=\"form\">" +
 		"<form>" +
 			"<fieldset class=\"form__options\">" +
 				"<p class=\"form__answer\">" +
-					"<input type=\"radio\" name=\"match\" id=\"match_" + buttonIndex + "\" value=\"guy\" checked> " +
+					"<input type=\"radio\" name=\"match\" id=\"match_" + buttonIndex + "\" value=\"guy\"> " +
 					"<label for=\"match_" + buttonIndex + "\" class=\"green\">" +
 						"" +
 					"</label>" +
