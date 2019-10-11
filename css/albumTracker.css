@@ -284,3 +284,7 @@ i {
 	align-items: center;
 }
 
+#sort {
+	float: left;
+	margin-right: 20px;
+}

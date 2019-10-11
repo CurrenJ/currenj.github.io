@@ -38,11 +38,15 @@ $( function() {
 		addEditable();
 	});
 	
-		
 	$( ".lock label div input" ).click(function() {
 		console.log($(this).attr("checked"));	
 		editMode(this.checked);
 	});
+	
+	$( "#sort" ).click(function() {
+		sortList();
+	});
+	
 	
 	 var fileInput = document.getElementById('inputId');
 	 
@@ -89,7 +93,7 @@ $( function() {
 });
 
 function createEl(before, obj) {
-	var el = "<div class=\"item " + obj['ranking'] + "\"><div class=\"inner\"><div class=\"artist\"><i>" + obj['artist'] + "</i></div>&nbsp-&nbsp<div class=\"album\">" + obj['album'] + "</div></div></div>";
+	var el = "<div class=\"item " + obj['ranking'] + "\"><div class=\"inner\"><i><div class=\"artist\">" + obj['artist'] + "</div></i>&nbsp-&nbsp<div class=\"album\">" + obj['album'] + "</div></div></div>";
 	before.before(el);
 }
 
@@ -103,6 +107,44 @@ function genList(){
 		console.log(value['artist'] + " - " + value['album']);
 		createEl($("#add-button"), value);
 	});	
+}
+
+function sortList(){
+	var sortedArtists = [];
+	
+	
+	$.each($(".item"), function(index, value){
+		list[index] = {};
+		list[index]['artist'] = $(value).find(".artist").html();
+		list[index]['album'] = $(value).find(".album").html();
+		list[index]['ranking'] = $(value).prop("class").substring(5);
+	});
+	
+	list.sort(function(a, b) {
+		var artistA = a['artist'].toLowerCase();
+		if(artistA.substring(0, 4) === "the "){
+			artistA = artistA.substring(4);
+		}
+		var artistB = b['artist'].toLowerCase();
+		if(artistB.substring(0, 4).toLowerCase() === "the "){
+			artistB = artistB.substring(4);
+		}
+		console.log(artistA + " | " + artistB);
+		
+		return ((artistA+a['album'] < artistB+b['album']) ? -1 : ((artistA+a['album'] == artistB+b['album']) ? 0 : 1));
+	});
+	
+	genList();		
+	inputUpdate();
+	
+	// $.each($(".item", function(index, value){
+		// sortedArtists[index] = $(value).find(".artist").html() + $(value).find(".album").html();
+		// refList[index] = {};
+		// refList[index]['artist'] = $(value).find(".artist").html();
+		// refList[index]['album'] = $(value).find(".album").html();
+		// refList[index]['ranking'] = $(value).prop("class").substring(5);
+	// });
+	// sortedArtists.sort();
 }
 
 function saveText(text){
