@@ -4,8 +4,15 @@
 	font-weight: 300;
 }
 
+body {
+	background-color: #fafafa;
+}
+
 #content-area {
-	margin: 5%;
+	margin: 4%;
+	padding: 1%;
+	border: 1px solid lightGrey;
+	background-color: white;
 }
 
 .item {
@@ -103,7 +110,6 @@
 }
 
 #save {
-	margin-right: 25px;
 }
 
 .my-button-style-a {
@@ -144,12 +150,29 @@ input {
 #add-button {
 	width: 20px;
 	height: 20px;
-	border: 1px dashed black;
+	border: 1px dashed #919191;
 	
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center; /* aligns on vertical for column */
 	align-items: center;
+	
+	transition: all .25s ease-in-out;
+}
+
+#add-button span {
+	color: #919191;
+	
+	transition: all .25s ease-in-out;
+}
+
+#add-button:hover {
+	border: 1px dashed black;
+	cursor: pointer;
+}
+
+#add-button:hover span {
+	color: black;
 }
 
 .form {
@@ -285,6 +308,42 @@ i {
 }
 
 #sort {
-	float: left;
-	margin-right: 20px;
+
+}
+
+a {
+	color: #5e5e5e;
+	text-decoration: none;
+}
+
+.bar-item.not-first {
+	margin-left: 25px;
+}
+
+.bar-item a{
+	width: auto;
+	letter-spacing: 0.05vw;
+	-webkit-transition: color 0.25s; /* Safari prior 6.1 */
+	transition: color 0.25s;
+}
+
+.bar-item a:hover {
+	color: black;
+}
+
+.bar-item a:active {
+	color: black;
+}
+
+
+.bar-item .line {
+	width: 0%;
+	height: 0.5px;
+	background-color: black;
+	-webkit-transition: width 0.25s; /* Safari prior 6.1 */
+	transition: width 0.25s;
+}
+
+.bar-item:hover .line {
+	width: 100%;
 }
