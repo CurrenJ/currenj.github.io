@@ -1,0 +1,203 @@
+* {
+	margin: 0;
+	font-family: 'Raleway', sans-serif;
+}
+
+#content-pane {
+	background-color: #f5f5f5;
+	width: 100%;
+	height: 100%;
+	
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center; /* aligns on vertical for column */
+	align-items: center;
+}
+
+#title-card {
+	width: 100%;
+	height: 70vh;
+	font-size: 18px;
+	color: grey;
+	font-weight: 300;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center; /* aligns on vertical for column */
+	align-items: center;
+}
+
+.flex {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center; /* aligns on vertical for column */
+	align-items: center;
+}
+
+#inner-content-pane {
+	background-color: white;
+	border: 1px solid #ebebeb;
+	margin: 2vw;
+	margin-left: 2vw;
+	margin-right: 2vw;
+	width: 96vw;
+	height: 90vw;
+}
+
+#tab-bar {
+	width: 100%;
+	height: 6vh;
+	min-height: 30px;
+	border-bottom: 1px solid #ebebeb;
+	
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center; /* aligns on vertical for column */
+	align-items: center;
+}
+
+#tab-bar .tab {
+	margin: 1vw;
+	cursor: pointer;
+}
+
+#tab-bar .tab .label {
+	letter-spacing: 0px;
+	color: #61beff;
+	transition: color 0.5s, letter-spacing 0.5s;
+}
+
+#tab-bar .tab .label:hover {
+	letter-spacing: 1px;
+	color: #2ba8ff;
+}
+
+#tab-bar .tab .underline {
+	width: 0%;
+	height: 1px;
+	background-color: #098be6;
+	transition: width 0.3s;
+}
+
+#tab-bar .tab:hover > .underline {
+	width: 100%;
+}
+
+#current-tab-wrapper {
+	width: 100%;
+	height: auto;
+	background-color: white;
+	overflow: auto;
+}
+
+#current-tab {
+	background-color: white;
+	margin: 1vw;
+	max-height: 90vh;
+	overflow: hidden;
+	
+	display: flex;
+  align-items: flex-start;
+}
+
+.messageBox {
+	width: 50%;
+	max-height: 80vh;
+	overflow: auto;
+	border: 1px solid #ebebeb;
+	padding: 3px;
+}
+
+.middleColumn {
+	width: 25%;
+	max-height: 80vh;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	margin-right: 5px;
+}
+
+.tokenBox {
+	width: 20%;
+	max-height: 80vh;
+	overflow-y: auto;
+	overflow-x: hidden;
+	border: 1px solid #ebebeb;
+	padding: 3px;
+	margin-right: 5px;
+}
+
+.middleColumn .tokenBox {
+	width: 100%;
+	max-height: 40vh !important;
+	overflow-x: wrap;
+	padding: 0px;
+	margin-bottom: 5px;
+}
+
+.randomBox {
+	width: 100%;
+	max-height: 40vh;
+	overflow: hidden;
+	border: 1px solid #ebebeb;
+	padding: 3px;
+	margin-top: 5px;
+}
+
+.randomBox .randomButton {
+	margin: 5px;
+	font-size: 14px;
+	padding: 2px;
+	border: 1px solid #ebebeb;
+	display: inline-block;
+	transition: 0.35s;
+	cursor: pointer;
+}
+
+.randomBox .randomButton:hover {
+	border: 1px solid grey;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.messageSpan {
+	display: block;	
+	
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: left; /* aligns on vertical for column */
+	align-items: center;
+	margin-bottom: 1px;
+}
+
+.messageSpan .messageContent {
+	font-size: 16px;
+}
+
+.messageSpan .messageTimestamp {
+	margin-right: 10px;
+	font-size: 11px;
+	color: grey;
+}
+
+.messageSpan .tokenCount {
+	margin-left: 10px;
+	font-size: 11px;
+	color: grey;
+}
+
+.messageSpan .tokenCount .small {
+	font-size: 9px;
+}
+
+.messageSpan .tokenRank {
+	margin-right: 10px;
+	font-size: 12px;
+	color: #71bef5;
+}
+
+
