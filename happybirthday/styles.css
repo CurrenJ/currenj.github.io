@@ -1,0 +1,123 @@
+* {
+	margin: 0px;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+}
+
+body {
+	background-color: #f0f0f0;
+}
+
+.imgDiv {	
+	height: 100%;
+	width: 100%;
+
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center; /* aligns on vertical for column */
+	align-items: center;
+}
+
+.mainImage {
+	height: 100%;
+	width: auto;
+
+	-webkit-box-shadow: 1px 1px 3px 0px rgba(184,184,184,1);
+	-moz-box-shadow: 1px 1px 3px 0px rgba(184,184,184,1);
+	box-shadow: 1px 1px 3px 0px rgba(184,184,184,1);
+	
+	transition: filter 1s;
+}
+
+.info {
+	position: absolute;	
+	background-color: rgba(219, 219, 219);
+	opacity: 0;
+	width: 0;
+	height: 20%;
+	top: 75%;
+	padding: 5px;
+	overflow-x: hidden;
+	font-size: 26px;
+	z-index: 4;
+	
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center; /* aligns on vertical for column */
+	align-items: center;
+	
+	transition: width 0.25s, opacity 0.5s;
+	transition-timing-function: ease-in-out;
+}
+
+.hoverImage {
+	height: 100%;
+	width: auto;
+
+	position: absolute;
+}
+
+.overlayDiv {
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+
+	position: absolute;
+}
+
+.rel {
+	width: auto;
+	height: 100%;
+	position: relative;
+	overflow-y: hidden;
+	
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center; /* aligns on vertical for column */
+	align-items: center;
+}
+
+#buttonDiv {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center; /* aligns on vertical for column */
+	align-items: center;
+	color: grey;
+	font-weight: 200;
+}
+
+#buttonDiv #buttonLeft{
+	position: absolute;
+	left: 0;
+	height: 20%;
+	width: 7%;
+	background-color: white;
+	opacity: 80%;
+	border: 1px solid lightGrey;
+		z-index: 4;
+	
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center; /* aligns on vertical for column */
+	align-items: center;
+}
+
+#buttonDiv #buttonRight{
+	position: absolute;
+	right: 0;
+	height: 20%;
+	width: 7%;
+	background-color: white;
+	opacity: 80%;
+	border: 1px solid lightGrey;
+	z-index: 4;
+	
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center; /* aligns on vertical for column */
+	align-items: center;
+}

@@ -1,0 +1,18 @@
+{
+	"canyoncliff": {"img": "canyoncliff.jpg", "overlay": "canyoncliffmom.png", "place": "Arizona", "time": "2019", "description": "The Grand Canyon"},
+	"raftingbus": {"img": "raftingbus.jpg", "overlay": "raftingbusmom.png", "place": "Arizona", "time": "2019", "description": "Pre-Canyon Selfie"},
+	"ascot": {"img": "ascot.jpg", "overlay": "ascotmom.png", "place": "Berkshire", "time": "June 21st, 2019", "description": "Ascot Racecourse"},
+	"prom": {"img": "prommom.jpg", "overlay": "prommomo.png", "place": "Cobham", "time": "2019", "description": "Curren's Senior Prom"},
+	"newyears": {"img": "newyears.jpg", "overlay": "newyearsmom.png", "place": "London", "time": "2018", "description": "New Year's Eve"},
+	"pub": {"img": "pub.jpg", "overlay": "pubmom.png", "place": "Walton-On-Thames", "time": "December 29th, 2018", "description": "Family Pints"},
+	"friends2018": {"img": "friends2018.jpg", "overlay": "friends2018mom.png", "place": "Maryland", "time": "Summer, 2018", "description": "Girls Weekend"},
+	"southbank": {"img": "southbank.jpg", "overlay": "southbankmom.png", "place": "Southbank", "time": "Summer, 2018", "description": ""},
+	"mini": {"img": "mini.jpg", "overlay": "minimom.png", "place": "Swan Close", "time": "April 4th, 2018", "description": "Mini acquisition."},
+	"rowing": {"img": "rowing.jpg", "overlay": "rowingmom.png", "place": "Tunxis Meade", "time": "May, 2018", "description": "AHS Crew Regatta"},
+	"banquet": {"img": "banquet.jpg", "overlay": "banquetmom.png", "place": "Avon High School", "time": "December, 2016", "description": "Lauren's Last Field Hockey Banquet"},
+	"crewbanquet": {"img": "crewbanquet.jpg", "overlay": "crewbanquetmom.png", "place": "Avon High School", "time": "November, 2016", "description": "Crew Banquet"},
+	"award": {"img": "uniformed.jpg", "overlay": "uniformedmom.png", "place": "", "time": "September 19th, 2015", "description": "Awards Ceremony"},
+	"ynot": {"img": "ynot.jpg", "overlay": "ynotmom.png", "place": "", "time": "August 23rd, 2015", "description": "YNOT?! Gig"},
+	"snowguard": {"img": "snowguard.jpg", "overlay": "snowguardmom.png", "place": "1st Company Governor's Horse Guard", "time": "February 14th, 2015", "description": "A Snow Day"},
+	"wedding": {"img": "wedding.jpg", "overlay": "weddingmom.png", "place": "A church with no AC.", "time":"1994", "description": "Wedding Day"}
+}
