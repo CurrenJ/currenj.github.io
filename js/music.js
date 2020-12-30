@@ -1,10 +1,23 @@
-$( function() {
+$(function () {
 	drawWave($('#sin1').children("svg")[0], 10);
 	drawWave($('#sin2').children("svg")[0], 15);
 	drawWave($('#sin3').children("svg")[0], 25);
 });
 
-function drawWave(svg, amplitude) {
+async function drawPolygon(i, svg, amplitude, rarity, freq, phase, origin, contHeight) {
+	var polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+	var points = "";
+	points += ((i - 1) * rarity + origin.x) + " " + (Math.sin(freq * (i - 1 + phase)) * amplitude + origin.y) + ", ";
+	points += ((i - 1) * rarity + origin.x) + " " + contHeight + ", ";
+	points += (i * rarity + origin.x) + " " + contHeight + ", ";
+	points += (i * rarity + origin.x) + " " + (Math.sin(freq * (i + phase)) * amplitude + origin.y) + ", ";
+	polygon.setAttribute("points", points);
+	polygon.setAttribute("style", "stroke:white;stroke-width:1;fill:white");
+
+	svg.appendChild(polygon);
+}
+
+async function drawWave(svg, amplitude) {
 	var contHeight = parseInt($(svg).css("height"));
 	var c2 = contHeight / 2;
 	var origin = { //origin of axes
@@ -20,17 +33,13 @@ function drawWave(svg, amplitude) {
 	console.log(contHeight);
 
 	for (var i = 0; i < parseInt($("body").css("width")) * 2; i++) {
-		var polygon = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-		var points = "";
-		points += ((i - 1) * rarity + origin.x) + " " + (Math.sin(freq*(i - 1 + phase)) * amplitude + origin.y) + ", ";
-		points += ((i - 1) * rarity + origin.x) + " " + contHeight + ", ";
-		points += (i * rarity + origin.x) + " " + contHeight + ", ";
-		points += (i * rarity + origin.x) + " " + (Math.sin(freq*(i + phase)) * amplitude + origin.y) + ", ";
-		polygon.setAttribute("points", points);
-		polygon.setAttribute("style", "stroke:white;stroke-width:1;fill:white");
-		
-		svg.appendChild(polygon);
-		
+
+		(function(i) {
+			setTimeout(function() {
+				drawPolygon(i, svg, amplitude, rarity, freq, phase, origin, contHeight);
+			}, 0);
+		  })(i);
+
 		// var line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
 
 		// line1.setAttribute('x1', (i - 1) * rarity + origin.x);
@@ -42,7 +51,7 @@ function drawWave(svg, amplitude) {
 		// line1.setAttribute('style', "stroke:white;stroke-width:1;fill:white;fill-rule=\"nonzero\"");
 
 		// svg.appendChild(line1);
-		
+
 		// var line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
 
 		// line2.setAttribute('x1', (i - 1) * rarity + origin.x);
@@ -54,7 +63,7 @@ function drawWave(svg, amplitude) {
 		// line2.setAttribute('style', "stroke:white;stroke-width:1;fill:white;fill-rule=\"nonzero\"");
 
 		// svg.appendChild(line2);
-		
+
 		// var line3 = document.createElementNS("http://www.w3.org/2000/svg", "line");
 
 		// line3.setAttribute('x1', i * rarity + origin.x);
@@ -66,7 +75,7 @@ function drawWave(svg, amplitude) {
 		// line3.setAttribute('style', "stroke:white;stroke-width:1;fill:white;fill-rule=\"nonzero\"");
 
 		// svg.appendChild(line3);
-		
+
 		// var line4 = document.createElementNS("http://www.w3.org/2000/svg", "line");
 
 		// line4.setAttribute('x2', (i - 1) * rarity + origin.x);
@@ -78,7 +87,7 @@ function drawWave(svg, amplitude) {
 		// line4.setAttribute('style', "stroke:white;stroke-width:1;fill:white;fill-rule=\"nonzero\"");
 
 		// svg.appendChild(line4);
-		
-		
+
+
 	}
 }
