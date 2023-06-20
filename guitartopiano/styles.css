@@ -1,0 +1,41 @@
+* {
+  font-family: sans-serif;
+}
+
+input {
+  margin-bottom: 10px;
+}
+
+.piano {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+}
+
+.white-key {
+  width: 1.92308%;
+  height: 0px;
+  padding-bottom: 9.6153846%;
+  background-color: white;
+  border-left: 1px solid black;
+  transition: all 100ms linear;
+}
+
+.white-key:last-child {
+  border-right: 1px solid black;
+}
+
+.black-key {
+  width: 1.28205128%;
+  height: 0px;
+  padding-bottom: 6.4102564%;
+  background-color: black;
+  position: relative;
+  margin-right: -0.64102564%;
+  margin-left: -0.64102564%;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  transition: all 100ms linear;
+}
