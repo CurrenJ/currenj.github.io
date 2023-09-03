@@ -10,6 +10,12 @@
     <p>
         Visualize guitar chords on a piano. Type anything other than a number to indicate a muted string.
       </p>
+
+      <select name="tuning" id="tuning" onchange="setTuning(this.value)">
+        <option value=0>Standard (EADGBE)</option>
+        <option value=1>DADGAD</option>
+      </select>
+      
       
       <select name="capo" id="capo" onchange="setCapo(this.value)">
         <option value=0>No Capo</option>

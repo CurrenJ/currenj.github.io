@@ -35,10 +35,23 @@ function setCapo(x)
   updateDisplay();
 }
 
-guitarStringNoteMapping = {0: 19, 1: 24, 2: 29, 3: 34, 4: 38, 5: 43};
+guitarStringNoteMappingEADGBE = {0: 19, 1: 24, 2: 29, 3: 34, 4: 38, 5: 43};
+guitarStringNoteMappingDADGAD = {0: 17, 1: 24, 2: 29, 3: 34, 4: 36, 5: 41};
+guitarTunings = [guitarStringNoteMappingEADGBE, guitarStringNoteMappingDADGAD];
 function convert(guitarStringIndex, fretIndex)
 {
+	let guitarStringNoteMapping = guitarTunings[tuning];
 	return guitarStringNoteMapping[guitarStringIndex] + fretIndex + Number(capo);
+}
+
+
+tuning = 0;
+// 0 = standard EADGBE
+// 1 = DADGAD
+function setTuning(x)
+{
+	tuning = x;
+	updateDisplay(); 
 }
 
 function convertText(text)
