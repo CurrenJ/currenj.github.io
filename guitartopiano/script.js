@@ -113,7 +113,7 @@ function saveSong(songDOM)
 	songJSON = JSON.stringify(songObj)
 	var bb = new Blob([songJSON], { type: 'text/plain' });
 	var a = document.createElement('a');
-	a.download = songObj["title"].replace(/[^a-zA-Z0-9]/g, '')+ '.txt';
+	a.download = songObj["title"].replace(/[^a-zA-Z0-9]/g, '')+ '.json';
 	a.href = window.URL.createObjectURL(bb);
 	a.click();
 }
