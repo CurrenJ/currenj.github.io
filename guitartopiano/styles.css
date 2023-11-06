@@ -39,3 +39,35 @@ input {
   border-bottom: 1px solid black;
   transition: all 100ms linear;
 }
+
+
+
+#songs {
+  margin-top: 20px;
+}
+
+.song {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.song-title {
+  margin: 0px;
+  text-decoration-line: underline;
+}
+
+.song-description {
+  padding-inline-start: 10px;
+  font-size: 90%;
+}
+
+.song-button {
+  margin-left: 10px;
+}
+
+ul.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding-inline-start: 20px;
+}
