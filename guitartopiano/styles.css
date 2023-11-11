@@ -58,6 +58,11 @@ input {
   text-decoration-line: underline;
 }
 
+.song-tuning {
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
 .song-description {
   padding-inline-start: 10px;
   font-size: 90%;

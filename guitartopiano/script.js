@@ -28,6 +28,7 @@ function clearHighlights()
   }
 }
 
+maxCapo = 15;
 capo = 0;
 function setCapo(x)
 {
@@ -37,7 +38,7 @@ function setCapo(x)
 
 guitarStringNoteMappingEADGBE = {0: 19, 1: 24, 2: 29, 3: 34, 4: 38, 5: 43};
 guitarStringNoteMappingDADGAD = {0: 17, 1: 24, 2: 29, 3: 34, 4: 36, 5: 41};
-guitarTunings = [guitarStringNoteMappingEADGBE, guitarStringNoteMappingDADGAD];
+guitarTunings = {"EADGBE": guitarStringNoteMappingEADGBE, "DADGAD": guitarStringNoteMappingDADGAD};
 function convert(guitarStringIndex, fretIndex)
 {
 	let guitarStringNoteMapping = guitarTunings[tuning];
@@ -45,7 +46,7 @@ function convert(guitarStringIndex, fretIndex)
 }
 
 
-tuning = 0;
+tuning = "EADGBE";
 // 0 = standard EADGBE
 // 1 = DADGAD
 function setTuning(x)
@@ -100,6 +101,10 @@ function saveSong(songDOM)
 	songObj = getNewSongObj();
 	console.log(songDOM);
 	songObj["title"] = songDOM.getElementsByClassName("song-title")[0].innerHTML;
+
+	songObj["tuning"] = songDOM.getElementsByClassName("song-tuning")[0].value;
+	songObj["capo"] = songDOM.getElementsByClassName("song-capo")[0].value;
+
 	chords = songDOM.getElementsByClassName("song-chords")[0].getElementsByClassName("song-chord");
 	songObj["chords"] = [];
 	for (let i = 0; i < chords.length; i++)
@@ -148,24 +153,35 @@ function addSongToDOM(songObj)
 	song.setAttribute("CLASS", "song");
 
 	// Song Title
-	songTitle = document.createElement("SPAN");
+	songTitle = document.createElement("P");
 	songTitle.setAttribute("CLASS", "song-title");
 	songTitle.setAttribute("CONTENTEDITABLE", "true")
 	songTitle.innerHTML = songObj["title"];
 	song.appendChild(songTitle);
 
+	// Tuning Dropdown
+	songTuning = getTuningInputElement();
+	songTuning.value = songObj["tuning"];
+	song.appendChild(songTuning);
+
+	// Capo Dropdown
+	songCapo = getCapoInputElement();
+	songCapo.value = songObj["capo"];
+	song.appendChild(songCapo);
+
 	songDescription = document.createElement("P");
 	songDescription.setAttribute("CLASS", "song-description");
 	songDescription.setAttribute("CONTENTEDITABLE", "true");
-	songDescription.innerHTML = songObj["info"]
-	song.appendChild(songDescription)
+	songDescription.innerHTML = songObj["info"];
+	song.appendChild(songDescription);
 
 	// Song Chords
 	songChords = document.createElement("UL");
 	songChords.setAttribute("CLASS", "song-chords no-bullets");
 
 	songObj["chords"].forEach(chord => {
-		addChordToDOM(chord, songChords);
+		songChord = getSongChordElement(chord);
+		songChords.appendChild(songChord);
 	});
 	song.appendChild(songChords);
 
@@ -176,7 +192,8 @@ function addSongToDOM(songObj)
 	songAddChordButton.setAttribute("CLASS", "song-add-chord");
 	songAddChordButton.setAttribute("VALUE", "Add Chord");
 	songAddChordButton.onclick = function(e){ 
-		addChordToDOM(document.getElementById("guitarChordText").value, e.target.parentNode.getElementsByClassName("song-chords")[0]);
+		songChord = getSongChordElement(document.getElementById("guitarChordText").value);
+		e.target.parentNode.getElementsByClassName("song-chords")[0].append(songChord);
 	};
 	song.appendChild(songAddChordButton);
 
@@ -192,7 +209,7 @@ function addSongToDOM(songObj)
 	document.getElementById("songs").appendChild(song);
 }
 
-function addChordToDOM(chordString, parentEl){
+function getSongChordElement(chordString){
 	songChord = document.createElement("LI");
 	songChord.setAttribute("CLASS", "song-chord");
 	songChord.setAttribute("DRAGGABLE", "true");
@@ -202,7 +219,12 @@ function addChordToDOM(chordString, parentEl){
 	songChordText = document.createElement("SPAN");
 	songChordText.setAttribute("CLASS", "song-chord-text");
 	songChordText.innerHTML=chordString;
-	songChordText.onclick = function(e){ document.getElementById("guitarChordText").value = e.target.innerHTML; updateDisplay(); } ;
+	songChordText.onclick = function(e){ 
+		document.getElementById("guitarChordText").value = e.target.innerHTML;
+		updateDisplay();
+		document.getElementById("tuning").value = e.target.parentNode.parentNode.parentNode.getElementsByClassName("song-tuning")[0].value;
+		document.getElementById("capo").value = e.target.parentNode.parentNode.parentNode.getElementsByClassName("song-capo")[0].value;
+	};
 	songChord.appendChild(songChordText);
 
 	songChordSet = document.createElement("INPUT");
@@ -211,7 +233,7 @@ function addChordToDOM(chordString, parentEl){
 	songChordSet.onclick = function(e){ 
 		e.target.parentNode.getElementsByClassName("song-chord-text")[0].innerHTML = document.getElementById("guitarChordText").value;
 	};
-	songChordSet.setAttribute("CLASS", "song-chord-set song-button")
+	songChordSet.setAttribute("CLASS", "song-chord-set song-button");
 	songChord.appendChild(songChordSet);
 	
 	songChordDelete = document.createElement("INPUT");
@@ -220,10 +242,36 @@ function addChordToDOM(chordString, parentEl){
 	songChordDelete.onclick = function(e){ 
 		e.target.parentNode.remove();
 	};
-	songChordDelete.setAttribute("CLASS", "song-chord-delete song-button")
+	songChordDelete.setAttribute("CLASS", "song-chord-delete song-button");
 	songChord.appendChild(songChordDelete);
 
-	parentEl.appendChild(songChord);
+	return songChord;
+}
+
+function getTuningInputElement()
+{
+	tuningInput = document.createElement("SELECT");
+	tuningInput.setAttribute("CLASS", "song-tuning");
+	Object.keys(guitarTunings).forEach(function(key) {
+		tuningOption = document.createElement("OPTION");
+		tuningOption.setAttribute("VALUE", key)
+		tuningOption.innerHTML = key;
+		tuningInput.appendChild(tuningOption);
+	 });
+	return tuningInput;
+}
+
+function getCapoInputElement()
+{
+	capoInput = document.createElement("SELECT");
+	capoInput.setAttribute("CLASS", "song-capo");
+	for (let i = 0; i < maxCapo; i++) {
+		capoOption = document.createElement("OPTION");
+		capoOption.setAttribute("VALUE", i);
+		capoOption.innerHTML = "Capo " + i;
+		capoInput.append(capoOption);
+	}
+	return capoInput;
 }
 
 function newSong()
@@ -242,6 +290,8 @@ function getNewSongObj()
 	};
 	return songObj;
 }
+
+
 
 
 // Drag & Drop List from @davidf
