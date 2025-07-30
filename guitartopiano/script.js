@@ -38,7 +38,8 @@ function setCapo(x)
 
 guitarStringNoteMappingEADGBE = {0: 19, 1: 24, 2: 29, 3: 34, 4: 38, 5: 43};
 guitarStringNoteMappingDADGAD = {0: 17, 1: 24, 2: 29, 3: 34, 4: 36, 5: 41};
-guitarTunings = {"EADGBE": guitarStringNoteMappingEADGBE, "DADGAD": guitarStringNoteMappingDADGAD};
+guitarStringNoteMappingFACGCE = {0: 20, 1: 24, 2: 27, 3: 34, 4: 39, 5: 41};
+guitarTunings = {"EADGBE": guitarStringNoteMappingEADGBE, "DADGAD": guitarStringNoteMappingDADGAD, "FACGCE": guitarStringNoteMappingFACGCE};
 function convert(guitarStringIndex, fretIndex)
 {
 	let guitarStringNoteMapping = guitarTunings[tuning];
