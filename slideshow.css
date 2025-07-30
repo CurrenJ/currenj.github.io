@@ -1,0 +1,155 @@
+/* Slideshow-specific styles */
+
+#slideshow-container {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 2vw;
+	box-sizing: border-box;
+}
+
+#slideshow-header {
+	margin-bottom: 2vw;
+	text-align: center;
+	width: 100%;
+}
+
+#slideshow-nav {
+	margin-top: 1vw;
+}
+
+#back-link {
+	color: #c0c0c0;
+	text-decoration: none;
+	font-size: 1.1vw;
+	letter-spacing: 0.05vw;
+	transition: color 0.25s;
+}
+
+#back-link:hover {
+	color: #adadad;
+}
+
+#slideshow-wrapper {
+	width: 100%;
+	max-width: 90vw;
+	height: 70vh;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#slideshow {
+	width: 100%;
+	height: 85%;
+	position: relative;
+	overflow: hidden;
+	border-radius: 8px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.slide {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+	opacity: 1;
+}
+
+.slide img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	background-color: #f8f8f8;
+}
+
+#slideshow-controls {
+	margin-top: 1.5vw;
+	display: flex;
+	gap: 1vw;
+	justify-content: center;
+	align-items: center;
+}
+
+#slideshow-controls button {
+	background-color: #f0f0f0;
+	border: 1px solid #d0d0d0;
+	padding: 0.8vw 1.2vw;
+	border-radius: 4px;
+	cursor: pointer;
+	font-family: 'Raleway', sans-serif;
+	font-size: 0.9vw;
+	transition: all 0.25s;
+	color: #666;
+}
+
+#slideshow-controls button:hover {
+	background-color: #e8e8e8;
+	border-color: #bbb;
+}
+
+#slideshow-controls button:active {
+	background-color: #ddd;
+}
+
+/* Mobile responsiveness */
+@media only screen and (max-device-width: 959px) {
+	#slideshow-container {
+		padding: 4vw;
+		height: 100vh;
+	}
+	
+	#back-link {
+		font-size: 3.5vw;
+	}
+	
+	#slideshow-wrapper {
+		height: 75vh;
+		max-width: 95vw;
+	}
+	
+	#slideshow-controls button {
+		padding: 2vw 3vw;
+		font-size: 2.8vw;
+	}
+	
+	#slideshow-controls {
+		gap: 3vw;
+		margin-top: 3vw;
+	}
+}
+
+@media only screen and (min-device-width: 960px) {
+	#slideshow-container {
+		padding: 2vw;
+	}
+	
+	#back-link {
+		font-size: 1.1vw;
+	}
+	
+	#slideshow-wrapper {
+		height: 70vh;
+		max-width: 85vw;
+	}
+	
+	#slideshow-controls button {
+		padding: 0.8vw 1.2vw;
+		font-size: 0.9vw;
+	}
+	
+	#slideshow-controls {
+		gap: 1vw;
+		margin-top: 1.5vw;
+	}
+}
