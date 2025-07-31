@@ -25,17 +25,33 @@ $(function() {
 		'happybirthday/pub.jpg'
 	];
 	
+	var shuffledImages = [];
 	var currentSlide = 0;
 	var isPlaying = true;
 	var slideInterval;
 	var slideDuration = 4000; // 4 seconds per slide
 	
+	// Shuffle array function (Fisher-Yates shuffle)
+	function shuffleArray(array) {
+		var shuffled = array.slice(); // Create a copy
+		for (var i = shuffled.length - 1; i > 0; i--) {
+			var j = Math.floor(Math.random() * (i + 1));
+			var temp = shuffled[i];
+			shuffled[i] = shuffled[j];
+			shuffled[j] = temp;
+		}
+		return shuffled;
+	}
+	
 	// Initialize slideshow
 	function initSlideshow() {
+		// Shuffle images on initialization
+		shuffledImages = shuffleArray(images);
+		
 		var slideshow = $('#slideshow');
 		
 		// Create slide elements
-		images.forEach(function(imagePath, index) {
+		shuffledImages.forEach(function(imagePath, index) {
 			var slide = $('<div class="slide"></div>');
 			var img = $('<img>').attr('src', imagePath).attr('alt', 'Slide ' + (index + 1));
 			
@@ -73,6 +89,14 @@ $(function() {
 		slides.eq(currentSlide).removeClass('active');
 		
 		currentSlide = (currentSlide + 1) % slides.length;
+		
+		// If we've reached the end, shuffle again for continuous random experience
+		if (currentSlide === 0) {
+			setTimeout(function() {
+				reshuffleSlides();
+			}, 1000); // Wait for transition to complete
+		}
+		
 		slides.eq(currentSlide).addClass('active');
 	}
 	
@@ -85,16 +109,29 @@ $(function() {
 		slides.eq(currentSlide).addClass('active');
 	}
 	
+	// Reshuffle slides for continuous randomness
+	function reshuffleSlides() {
+		shuffledImages = shuffleArray(images);
+		var slides = $('.slide');
+		
+		// Update image sources with new shuffled order
+		slides.each(function(index) {
+			if (index < shuffledImages.length) {
+				$(this).find('img').attr('src', shuffledImages[index]);
+			}
+		});
+	}
+	
 	// Toggle play/pause
 	function togglePlayPause() {
 		isPlaying = !isPlaying;
 		var button = $('#play-pause');
 		
 		if (isPlaying) {
-			button.text('⏸️ Pause');
+			button.html('⏸️').attr('title', 'Pause');
 			startSlideshow();
 		} else {
-			button.text('▶️ Play');
+			button.html('▶️').attr('title', 'Play');
 			if (slideInterval) {
 				clearInterval(slideInterval);
 			}
@@ -114,25 +151,33 @@ $(function() {
 				break;
 			case 'ArrowRight':
 			case ' ':
+				e.preventDefault(); // Prevent page scroll on spacebar
 				nextSlide();
 				break;
 			case 'p':
 			case 'P':
 				togglePlayPause();
 				break;
+			case 'r':
+			case 'R':
+				// Manual reshuffle
+				reshuffleSlides();
+				break;
 		}
 	});
 	
-	// Pause on hover for better UX
-	$('#slideshow').on('mouseenter', function() {
-		if (slideInterval) {
-			clearInterval(slideInterval);
-		}
-	}).on('mouseleave', function() {
-		if (isPlaying) {
-			startSlideshow();
-		}
-	});
+	// Pause on hover for better UX (only on desktop)
+	if (window.matchMedia("(hover: hover)").matches) {
+		$('#slideshow').on('mouseenter', function() {
+			if (slideInterval) {
+				clearInterval(slideInterval);
+			}
+		}).on('mouseleave', function() {
+			if (isPlaying) {
+				startSlideshow();
+			}
+		});
+	}
 	
 	// Initialize when document is ready
 	initSlideshow();
