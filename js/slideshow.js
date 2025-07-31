@@ -2,34 +2,25 @@ $(function() {
 	console.log("Slideshow ready!");
 	
 	// Image collection - using a mix of artistic and personal images
+	
 	var images = [
-		'css/1.jpg',
-		'css/2.jpg', 
-		'css/3.jpg',
-		'css/4.jpg',
-		'css/5.jpg',
-		'css/6.jpg',
-		'css/MilkboatFinal8.png',
-		'css/album.jpg',
-		'css/SquareWaterStyle.jpg',
-		'css/MoonBad.jpg',
-		'css/background2.jpg',
-		'happybirthday/wedding.jpg',
-		'happybirthday/canyoncliff.jpg',
-		'happybirthday/newyears.jpg',
-		'happybirthday/ascot.jpg',
-		'happybirthday/friends2018.jpg',
-		'happybirthday/rowing.jpg',
-		'happybirthday/southbank.jpg',
-		'happybirthday/uniformed.jpg',
-		'happybirthday/pub.jpg'
+		'slideshow/arid0.png',
+		'slideshow/arid1.png',
+		'slideshow/cave0.png',
+		'slideshow/cave1.png',
+		'slideshow/cave2.png',
+		'slideshow/cave3.png',
+		'slideshow/cave4.png',
+		'slideshow/cave5.png',
+		'slideshow/cave6.png',
+		'slideshow/tanks.png',
 	];
 	
 	var shuffledImages = [];
 	var currentSlide = 0;
 	var isPlaying = true;
 	var slideInterval;
-	var slideDuration = 4000; // 4 seconds per slide
+	var slideDuration = 5000; // 5 seconds per slide
 	
 	// Shuffle array function (Fisher-Yates shuffle)
 	function shuffleArray(array) {
@@ -81,6 +72,13 @@ $(function() {
 				nextSlide();
 			}
 		}, slideDuration);
+
+		// Ensure the first slide is active when starting
+		if ($('.slide.active').length === 0) {
+			$('.slide').removeClass('active');
+			$('.slide').first().addClass('active');
+			currentSlide = 0;
+		}
 	}
 	
 	// Go to next slide
@@ -165,19 +163,6 @@ $(function() {
 				break;
 		}
 	});
-	
-	// Pause on hover for better UX (only on desktop)
-	if (window.matchMedia("(hover: hover)").matches) {
-		$('#slideshow').on('mouseenter', function() {
-			if (slideInterval) {
-				clearInterval(slideInterval);
-			}
-		}).on('mouseleave', function() {
-			if (isPlaying) {
-				startSlideshow();
-			}
-		});
-	}
 	
 	// Initialize when document is ready
 	initSlideshow();
