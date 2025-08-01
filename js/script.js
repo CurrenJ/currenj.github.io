@@ -430,7 +430,7 @@ $(function() {
 		
 		createBurst() {
 			// Create burst of particles from center
-			for (let i = 0; i < 80; i++) {
+			for (let i = 0; i < 160; i++) {
 				this.createParticle();
 			}
 			this.animate();
@@ -441,18 +441,31 @@ $(function() {
 			var angle = (Math.random() * Math.PI * 0.8) + (Math.PI * 0.1); // 0.1π to 0.9π (mostly upward)
 			var speed = 200 + Math.random() * 300; // Initial speed
 			
+			// Get terminal screen size and position from document
+			var crtContainer = document.getElementById('crt-container');
+			var rect = crtContainer ? crtContainer.getBoundingClientRect() : { width: window.innerWidth, height: window.innerHeight, left: 0, top: 0 };
+
+			
+ 			var pX = rect.left + Math.random() * rect.width; // Random X within container
+			var pY = rect.top;
+
+			// Vary drag and gravity based on particle size (smaller = more drag, less gravity)
+			var size = 4 + Math.random() * 6;
+			var drag = 0.98 + (10 - size) * 0.002; // 0.98 to 0.96
+			var gravity = 100 + (size - 4) * 30;   // 200 to ~380
+
 			var particle = {
 				element: document.createElement('div'),
-				x: this.centerX,
-				y: this.centerY,
+				x:  pX,
+				y:  pY,
 				vx: Math.cos(angle) * speed,
 				vy: -Math.sin(angle) * speed, // Negative for upward
 				life: 4000, // 4 seconds
 				maxLife: 4000,
-				size: 4 + Math.random() * 6,
+				size: size,
 				color: 'hsl(' + Math.random() * 360 + ', 100%, 70%)',
-				gravity: 300,
-				drag: 0.98
+				gravity: gravity,
+				drag: drag
 			};
 			
 			// Style the particle element
