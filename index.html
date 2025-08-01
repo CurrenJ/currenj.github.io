@@ -1,67 +1,81 @@
-	<html>
-	<head>
-		<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500&display=swap" rel="stylesheet"> 
-		<link rel="stylesheet" type="text/css" href="styles.css">
-		<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-		<script type="text/javascript" src="js/script.js"></script>
-	</head>
-	<body>
-		<div id="content">
-			<div id="mid-container">
-				<span id="title-wrapper">
-				<span id="title" class="curren">Curren </span><span id="title" class="jeandell">Jeandell</span>
-				</span>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Curren Jeandell - Terminal</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+	<div id="crt-container">
+		<div id="crt-screen">
+			<div id="scanlines"></div>
+			<div id="static-noise"></div>
+			<div id="terminal">
+				<div id="header">
+					<div id="title-text">CURREN JEANDELL</div>
+					<div id="system-info">TERMINAL v2.1.0 - READY</div>
+				</div>
 				
-				<div id="bar">
-					<div class="bar-item">
-						<span><a href="PLAM.html">PLAM</a></span>
-						<div class="line"></div>
-					</div>
-					<div class="bar-item not-first">
-						<span><a href="psych.html">Psych Proj</a></span>
-						<div class="line"></div>
-					</div>
-					<div class="bar-item not-first">
-						<span><a href="music.html">Music</a></span>
-						<div class="line"></div>
+				<div id="content">
+					<div class="terminal-line">
+						<span class="prompt">$</span> <span class="command">ls -la /projects</span>
 					</div>
 					
-					<div class="bar-item not-first">
-						<span><a href="albumTracker.html">Album Tracker</a></span>
-						<div class="line"></div>
+					<div id="project-list">
+						<div class="project-item">
+							<span class="file-info">drwxr-xr-x 1 curren staff</span>
+							<a href="PLAM.html" class="project-link">PLAM</a>
+						</div>
+						<div class="project-item">
+							<span class="file-info">drwxr-xr-x 1 curren staff</span>
+							<a href="psych.html" class="project-link">Psych_Proj</a>
+						</div>
+						<div class="project-item">
+							<span class="file-info">drwxr-xr-x 1 curren staff</span>
+							<a href="music.html" class="project-link">Music</a>
+						</div>
+						<div class="project-item">
+							<span class="file-info">drwxr-xr-x 1 curren staff</span>
+							<a href="albumTracker.html" class="project-link">Album_Tracker</a>
+						</div>
+						<div class="project-item">
+							<span class="file-info">drwxr-xr-x 1 curren staff</span>
+							<a href="The-Game/index.html" class="project-link">Choices_The_Game</a>
+						</div>
+						<div class="project-item">
+							<span class="file-info">drwxr-xr-x 1 curren staff</span>
+							<a href="TWBTS/index.html" class="project-link">TWBTS</a>
+						</div>
+						<div class="project-item">
+							<span class="file-info">drwxr-xr-x 1 curren staff</span>
+							<a href="bernie/index.html" class="project-link">Bernie</a>
+						</div>
+						<div class="project-item">
+							<span class="file-info">drwxr-xr-x 1 curren staff</span>
+							<a href="happybirthday/index.html" class="project-link">JJ</a>
+						</div>
+						<div class="project-item">
+							<span class="file-info">drwxr-xr-x 1 curren staff</span>
+							<a href="guitartopiano/guitartopiano.html" class="project-link">Guitar2Piano</a>
+						</div>
+						<div class="project-item">
+							<span class="file-info">drwxr-xr-x 1 curren staff</span>
+							<a href="potionsplus.html" class="project-link">Potions_Plus</a>
+						</div>
 					</div>
 					
-					<div class="bar-item not-first">
-						<span><a href="The-Game/index.html">Choices: The Game</a></span>
-						<div class="line"></div>
-					</div>
-					
-					<div class="bar-item not-first">
-						<span><a href="TWBTS/index.html">TWBTS</a></span>
-						<div class="line"></div>
-					</div>
-					
-					<div class="bar-item not-first">
-						<span><a href="bernie/index.html">Bernie</a></span>
-						<div class="line"></div>
-					</div>
-					
-					<div class="bar-item not-first">
-						<span><a href="happybirthday/index.html">JJ</a></span>
-						<div class="line"></div>
-					</div>
-
-					<div class="bar-item not-first">
-						<span><a href="guitartopiano/guitartopiano.html">Guitar2Piano</a></span>
-						<div class="line"></div>
-					</div>
-					
-					<div class="bar-item not-first">
-						<span><a href="potionsplus.html">Potions Plus</a></span>
-						<div class="line"></div>
+					<div class="terminal-line" id="current-line">
+						<span class="prompt">$</span> <span id="random-text"></span><span class="cursor">█</span>
 					</div>
 				</div>
 			</div>
 		</div>
-	</body>
+	</div>
+</body>
 </html>
