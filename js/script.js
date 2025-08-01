@@ -1,6 +1,35 @@
 $(function() {
 	console.log("Terminal Ready!");
 	
+	// Theme system
+	var currentTheme = localStorage.getItem('terminal-theme') || 'orange';
+	var body = $('body');
+	
+	// Apply saved theme
+	function applyTheme(theme) {
+		body.removeClass('theme-orange theme-green theme-lavender theme-blue theme-gold');
+		body.addClass('theme-' + theme);
+		$('.theme-btn').removeClass('active');
+		$('.theme-btn[data-theme="' + theme + '"]').addClass('active');
+		currentTheme = theme;
+		localStorage.setItem('terminal-theme', theme);
+	}
+	
+	// Initialize with saved theme
+	applyTheme(currentTheme);
+	
+	// Theme button handlers
+	$('.theme-btn').on('click', function() {
+		var newTheme = $(this).data('theme');
+		applyTheme(newTheme);
+		
+		// Add a brief screen flicker effect when changing themes
+		$('#crt-screen').addClass('theme-change-effect');
+		setTimeout(function() {
+			$('#crt-screen').removeClass('theme-change-effect');
+		}, 200);
+	});
+	
 	var rText = $("#random-text");
 	var commandList = [
 		"echo \"demonstrates his value.\"",
@@ -65,14 +94,24 @@ $(function() {
 	}, 3000);
 });
 
-// Add CSS for link click effect
+// Add CSS for link click effect and theme change effect
 $('<style>').prop('type', 'text/css').html(`
 	.link-click-effect {
 		animation: linkClick 0.1s ease-out !important;
 	}
 	
+	.theme-change-effect {
+		animation: themeChange 0.2s ease-out !important;
+	}
+	
 	@keyframes linkClick {
 		0% { filter: brightness(1.2) contrast(1.3); }
 		100% { filter: brightness(1) contrast(1.1); }
+	}
+	
+	@keyframes themeChange {
+		0% { filter: brightness(1.5) contrast(1.5) saturate(1.5); }
+		50% { filter: brightness(0.8) contrast(0.8) saturate(0.5); }
+		100% { filter: brightness(1) contrast(1.1) saturate(1); }
 	}
 `).appendTo('head');
