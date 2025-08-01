@@ -76,7 +76,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    perspective: 2000px;
 }
 
 #crt-container {
@@ -87,12 +86,6 @@ body {
     border-radius: 25px;
     padding: 45px;
     position: relative;
-    transform-style: preserve-3d;
-    transform: 
-        perspective(2000px)
-        rotateX(2deg)
-        rotateY(-1deg)
-        translateZ(0);
     box-shadow: 
         /* Outer glow */
         0 0 100px rgba(var(--glow-color-rgb), 0.3),
@@ -165,12 +158,6 @@ body {
     overflow: hidden;
     border: 3px solid #333;
     animation: screenFlicker 4s infinite alternate;
-    transform: 
-        perspective(1000px)
-        rotateX(-1deg)
-        scaleX(0.98)
-        scaleY(0.99);
-    transform-style: preserve-3d;
     box-shadow: 
         /* Inner screen bezel */
         inset 0 0 0 2px #222,
@@ -183,11 +170,6 @@ body {
 @keyframes screenFlicker {
     0%, 100% { 
         filter: brightness(1) contrast(1.1); 
-        transform: 
-            perspective(1000px)
-            rotateX(-1deg)
-            scaleX(0.98)
-            scaleY(0.99);
         box-shadow: 
             inset 0 0 0 2px #222,
             inset 0 2px 4px rgba(0, 0, 0, 0.8),
@@ -196,11 +178,6 @@ body {
     }
     50% { 
         filter: brightness(0.98) contrast(1.05); 
-        transform: 
-            perspective(1000px)
-            rotateX(-0.8deg)
-            scaleX(0.985)
-            scaleY(0.995);
         box-shadow: 
             inset 0 0 0 2px #222,
             inset 0 2px 4px rgba(0, 0, 0, 0.8),
@@ -261,12 +238,6 @@ body {
     line-height: 1.4;
     overflow-y: auto;
     filter: drop-shadow(0 0 8px var(--glow-color));
-    transform: 
-        perspective(1200px)
-        rotateX(0.5deg)
-        scaleX(0.995)
-        scaleY(0.998);
-    transform-origin: center center;
 }
 
 #header {
@@ -455,20 +426,11 @@ body {
 
 /* Responsive design */
 @media (max-width: 768px) {
-    body {
-        perspective: 1500px;
-    }
-    
     #crt-container {
         width: 95vw;
         height: 85vh;
         padding: 25px;
         border-radius: 20px;
-        transform: 
-            perspective(1500px)
-            rotateX(1.5deg)
-            rotateY(-0.8deg)
-            translateZ(0);
     }
     
     #crt-container::before {
@@ -487,22 +449,9 @@ body {
         border-radius: 10px;
     }
     
-    #crt-screen {
-        transform: 
-            perspective(800px)
-            rotateX(-0.8deg)
-            scaleX(0.985)
-            scaleY(0.995);
-    }
-    
     #terminal {
         font-size: 12px;
         padding: 15px;
-        transform: 
-            perspective(1000px)
-            rotateX(0.4deg)
-            scaleX(0.997)
-            scaleY(0.999);
     }
     
     #title-text {
@@ -540,20 +489,11 @@ body {
 }
 
 @media (max-width: 480px) {
-    body {
-        perspective: 1200px;
-    }
-    
     #crt-container {
         width: 98vw;
         height: 90vh;
         padding: 20px;
         border-radius: 18px;
-        transform: 
-            perspective(1200px)
-            rotateX(1.2deg)
-            rotateY(-0.6deg)
-            translateZ(0);
     }
     
     #crt-container::before {
@@ -572,22 +512,9 @@ body {
         border-radius: 8px;
     }
     
-    #crt-screen {
-        transform: 
-            perspective(600px)
-            rotateX(-0.6deg)
-            scaleX(0.99)
-            scaleY(0.997);
-    }
-    
     #terminal {
         font-size: 11px;
         padding: 10px;
-        transform: 
-            perspective(800px)
-            rotateX(0.3deg)
-            scaleX(0.998)
-            scaleY(0.9995);
     }
     
     #title-text {
@@ -610,7 +537,7 @@ body {
     }
 }
 
-/* Screen curvature effect and fisheye distortion */
+/* Screen curvature effect */
 #crt-screen::after {
     content: '';
     position: absolute;
@@ -618,35 +545,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
-        /* Enhanced fisheye curvature effect */
-        radial-gradient(ellipse 120% 110% at center, transparent 45%, rgba(0, 0, 0, 0.15) 70%, rgba(0, 0, 0, 0.4) 85%, rgba(0, 0, 0, 0.7) 100%),
-        /* Additional corner darkening for 3D effect */
-        linear-gradient(45deg, rgba(0, 0, 0, 0.3) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.3) 100%),
-        linear-gradient(-45deg, rgba(0, 0, 0, 0.3) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.3) 100%);
+    background: radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.6) 100%);
     pointer-events: none;
     z-index: 1001;
-    border-radius: 12px;
-}
-
-/* Add additional fisheye container for more realistic warping */
-#crt-screen::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: 
-        /* Fisheye reflection effect */
-        radial-gradient(ellipse 80% 60% at 30% 25%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
-        /* Edge reflection */
-        linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 30%);
-    pointer-events: none;
-    z-index: 1002;
-    border-radius: 14px;
-    transform: 
-        perspective(800px)
-        rotateX(1deg)
-        rotateY(0.5deg);
 }
