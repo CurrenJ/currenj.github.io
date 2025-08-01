@@ -285,19 +285,13 @@ $(function() {
 	}
 	
 	function createPartyEffect() {
+		// Create particle system container
 		var party = $('<div id="party-effect"></div>');
 		$('body').append(party);
 		
-		// Create confetti
-		for (var i = 0; i < 50; i++) {
-			var confetti = $('<div class="confetti"></div>');
-			confetti.css({
-				left: Math.random() * 100 + '%',
-				backgroundColor: 'hsl(' + Math.random() * 360 + ', 100%, 70%)',
-				animationDelay: Math.random() * 2 + 's'
-			});
-			party.append(confetti);
-		}
+		// Initialize particle system
+		var particleSystem = new ParticleSystem(party[0]);
+		particleSystem.createBurst();
 		
 		// Flash screen colors
 		var colors = ['theme-green', 'theme-blue', 'theme-lavender', 'theme-gold'];
@@ -311,8 +305,9 @@ $(function() {
 		setTimeout(function() {
 			clearInterval(colorInterval);
 			applyTheme(currentTheme);
+			particleSystem.destroy();
 			party.remove();
-		}, 3000);
+		}, 4000);
 	}
 	
 	function createHackingEffect() {
@@ -422,6 +417,121 @@ $(function() {
 			}, 100);
 		}
 	}, 3000);
+
+	// Particle System Class
+	class ParticleSystem {
+		constructor(container) {
+			this.container = container;
+			this.particles = [];
+			this.animationId = null;
+			this.centerX = window.innerWidth / 2;
+			this.centerY = window.innerHeight / 2;
+		}
+		
+		createBurst() {
+			// Create burst of particles from center
+			for (let i = 0; i < 80; i++) {
+				this.createParticle();
+			}
+			this.animate();
+		}
+		
+		createParticle() {
+			// Random angle for burst direction (mainly upward)
+			var angle = (Math.random() * Math.PI * 0.8) + (Math.PI * 0.1); // 0.1π to 0.9π (mostly upward)
+			var speed = 200 + Math.random() * 300; // Initial speed
+			
+			var particle = {
+				element: document.createElement('div'),
+				x: this.centerX,
+				y: this.centerY,
+				vx: Math.cos(angle) * speed,
+				vy: -Math.sin(angle) * speed, // Negative for upward
+				life: 4000, // 4 seconds
+				maxLife: 4000,
+				size: 4 + Math.random() * 6,
+				color: 'hsl(' + Math.random() * 360 + ', 100%, 70%)',
+				gravity: 300,
+				drag: 0.98
+			};
+			
+			// Style the particle element
+			particle.element.className = 'particle';
+			particle.element.style.position = 'absolute';
+			particle.element.style.width = particle.size + 'px';
+			particle.element.style.height = particle.size + 'px';
+			particle.element.style.backgroundColor = particle.color;
+			particle.element.style.borderRadius = '50%';
+			particle.element.style.pointerEvents = 'none';
+			particle.element.style.zIndex = '10000';
+			particle.element.style.boxShadow = '0 0 6px ' + particle.color;
+			
+			this.container.appendChild(particle.element);
+			this.particles.push(particle);
+		}
+		
+		animate() {
+			var self = this;
+			var lastTime = performance.now();
+			
+			function update(currentTime) {
+				var deltaTime = (currentTime - lastTime) / 1000; // Convert to seconds
+				lastTime = currentTime;
+				
+				// Update particles
+				for (let i = self.particles.length - 1; i >= 0; i--) {
+					var particle = self.particles[i];
+					
+					// Apply physics
+					particle.vy += particle.gravity * deltaTime; // Gravity
+					particle.vx *= particle.drag; // Air resistance
+					particle.vy *= particle.drag;
+					
+					// Update position
+					particle.x += particle.vx * deltaTime;
+					particle.y += particle.vy * deltaTime;
+					
+					// Update life
+					particle.life -= deltaTime * 1000;
+					
+					// Calculate opacity based on life remaining
+					var opacity = Math.max(0, particle.life / particle.maxLife);
+					
+					// Update element position and opacity
+					particle.element.style.left = particle.x + 'px';
+					particle.element.style.top = particle.y + 'px';
+					particle.element.style.opacity = opacity;
+					
+					// Remove dead particles
+					if (particle.life <= 0 || particle.y > window.innerHeight + 100) {
+						particle.element.remove();
+						self.particles.splice(i, 1);
+					}
+				}
+				
+				// Continue animation if particles exist
+				if (self.particles.length > 0) {
+					self.animationId = requestAnimationFrame(update);
+				}
+			}
+			
+			this.animationId = requestAnimationFrame(update);
+		}
+		
+		destroy() {
+			if (this.animationId) {
+				cancelAnimationFrame(this.animationId);
+			}
+			
+			// Remove all remaining particles
+			this.particles.forEach(particle => {
+				if (particle.element && particle.element.parentNode) {
+					particle.element.remove();
+				}
+			});
+			this.particles = [];
+		}
+	}
 });
 
 // Add CSS for effects
@@ -481,12 +591,8 @@ $('<style>').prop('type', 'text/css').html(`
 		pointer-events: none;
 	}
 	
-	.confetti {
-		position: absolute;
-		width: 10px;
-		height: 10px;
-		top: -10px;
-		animation: confettiFall 3s linear infinite;
+	.particle {
+		transition: opacity 0.1s ease-out;
 	}
 	
 	#hack-effect {
@@ -554,11 +660,6 @@ $('<style>').prop('type', 'text/css').html(`
 	@keyframes matrixChar {
 		0%, 100% { opacity: 1; }
 		50% { opacity: 0.5; }
-	}
-	
-	@keyframes confettiFall {
-		0% { transform: translateY(-100vh) rotate(0deg); }
-		100% { transform: translateY(100vh) rotate(360deg); }
 	}
 	
 	@keyframes hackPulse {
