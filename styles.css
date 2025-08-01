@@ -62,16 +62,6 @@
     --scanline-color: rgba(255, 102, 0, 0.15);
 }
 
-#scanlines {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    pointer-events: none;
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -209,7 +199,7 @@ body {
     background-size: 100% 4px;
     animation: scanlines 0.1s linear infinite;
     pointer-events: none;
-    z-index: 1000;
+    z-index: 1;
 }
 
 @keyframes scanlines {
