@@ -424,6 +424,55 @@ body {
     margin-right: 4px;
 }
 
+#terminal-input-container {
+    position: relative;
+    display: inline-block;
+}
+
+#terminal-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--primary-bright);
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 0;
+    margin: 0;
+    width: 0;
+    min-width: 0;
+    transition: width 0.2s ease;
+    caret-color: var(--primary-color);
+    text-shadow: 0 0 3px var(--glow-color);
+}
+
+#terminal-input:focus,
+#terminal-input.has-input {
+    width: 500px;
+}
+
+/* Hide the random text and cursor when input is focused or has content */
+#terminal-input:focus ~ #random-text,
+#terminal-input.has-input ~ #random-text,
+#terminal-input:focus ~ .cursor,
+#terminal-input.has-input ~ .cursor {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #terminal-input:focus,
+    #terminal-input.has-input {
+        width: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    #terminal-input:focus,
+    #terminal-input.has-input {
+        width: 200px;
+    }
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     #crt-container {

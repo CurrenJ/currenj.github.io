@@ -30,7 +30,12 @@ $(function() {
 		}, 200);
 	});
 	
+	// Interactive Terminal System
 	var rText = $("#random-text");
+	var terminalInput = $("#terminal-input");
+	var currentLine = $("#current-line");
+	var content = $("#content");
+	
 	var commandList = [
 		"echo \"demonstrates his value.\"",
 		"cat /beliefs/froggyland.txt",
@@ -59,20 +64,345 @@ $(function() {
 		"philosophy --existence=strange"
 	];
 	
-	// Type out random command with typewriter effect
-	var randomCommand = commandList[Math.floor(Math.random() * commandList.length)];
+	var typewriterInterval;
+	var currentCommand = "";
 	var currentIndex = 0;
+	var inactivityTimer;
+	var isTypingFlavor = false;
+	var userHasTyped = false;
 	
-	function typeWriter() {
-		if (currentIndex < randomCommand.length) {
-			rText.html(randomCommand.substring(0, currentIndex + 1));
-			currentIndex++;
-			setTimeout(typeWriter, 50 + Math.random() * 50);
+	// Command system
+	var commands = {
+		'ls': function() {
+			return "Available commands:\n" +
+				   "  ls, dir     - List available commands\n" +
+				   "  help        - Show this help message\n" +
+				   "  whoami      - Display user information\n" +
+				   "  matrix      - Enter the Matrix\n" +
+				   "  clear       - Clear the terminal\n" +
+				   "  party       - Start a celebration\n" +
+				   "  hack        - Initiate hacking sequence\n" +
+				   "  coffee      - Take a coffee break\n" +
+				   "  cat joke.txt - Display a random joke\n" +
+				   "  fortune     - Get your fortune\n" +
+				   "  about       - About this terminal\n" +
+				   "  projects    - List available projects";
+		},
+		'dir': function() {
+			return commands.ls();
+		},
+		'help': function() {
+			return commands.ls();
+		},
+		'whoami': function() {
+			setTimeout(function() {
+				addGlitchEffect();
+			}, 500);
+			return "User: Curren Jeandell\n" +
+				   "Role: Developer, Creator, Dreamer\n" +
+				   "Status: Always coding something awesome\n" +
+				   "Location: Somewhere between reality and code";
+		},
+		'matrix': function() {
+			createMatrixEffect();
+			return "Welcome to the Matrix, Neo...";
+		},
+		'clear': function() {
+			clearTerminal();
+			return "";
+		},
+		'party': function() {
+			createPartyEffect();
+			return "🎉 PARTY TIME! 🎉\n" +
+				   "Let's celebrate another day of awesome coding!";
+		},
+		'hack': function() {
+			createHackingEffect();
+			return "Initiating hacking sequence...\n" +
+				   "Access granted. Welcome, hacker.";
+		},
+		'coffee': function() {
+			createCoffeeEffect();
+			return "☕ Taking a coffee break...\n" +
+				   "Ah, the fuel of developers everywhere!\n" +
+				   "Productivity levels: MAXIMUM";
+		},
+		'cat joke.txt': function() {
+			var jokes = [
+				"Why do programmers prefer dark mode?\nBecause light attracts bugs!",
+				"How many programmers does it take to change a light bulb?\nNone. That's a hardware problem.",
+				"Why don't programmers like nature?\nIt has too many bugs.",
+				"What's a programmer's favorite hangout place?\nFoo Bar!",
+				"Why did the programmer quit his job?\nBecause he didn't get arrays.",
+				"What do you call a programmer from Finland?\nNemo!"
+			];
+			return jokes[Math.floor(Math.random() * jokes.length)];
+		},
+		'fortune': function() {
+			var fortunes = [
+				"Your code will compile on the first try today.",
+				"A bug you've been hunting will reveal itself soon.",
+				"Great things await in your next git commit.",
+				"The coffee will be strong, and the code will be clean.",
+				"Today is a good day to refactor something.",
+				"Your next pull request will be approved without changes.",
+				"Stack Overflow will have the exact answer you need."
+			];
+			return "🔮 " + fortunes[Math.floor(Math.random() * fortunes.length)];
+		},
+		'about': function() {
+			return "CURREN JEANDELL TERMINAL v2.1.0\n" +
+				   "==============================\n" +
+				   "An interactive terminal experience showcasing\n" +
+				   "projects, skills, and a bit of personality.\n" +
+				   "\n" +
+				   "Built with HTML, CSS, JavaScript, and ♥";
+		},
+		'projects': function() {
+			return "Available projects (click links above):\n" +
+				   "• PLAM - Project Management Tool\n" +
+				   "• Psych_Proj - Psychology Project\n" +
+				   "• Music - Music-related projects\n" +
+				   "• Album_Tracker - Track your music collection\n" +
+				   "• Choices_The_Game - Interactive choice game\n" +
+				   "• TWBTS - The World Behind The Screen\n" +
+				   "• Bernie - Political engagement platform\n" +
+				   "• JJ - Happy Birthday project\n" +
+				   "• Guitar2Piano - Musical instrument converter\n" +
+				   "• Potions_Plus - Gaming enhancement tool";
 		}
+	};
+	
+	function startFlavorText() {
+		if (userHasTyped) return;
+		
+		var randomCommand = commandList[Math.floor(Math.random() * commandList.length)];
+		currentCommand = randomCommand;
+		currentIndex = 0;
+		isTypingFlavor = true;
+		rText.empty();
+		
+		typewriterInterval = setInterval(function() {
+			if (currentIndex < currentCommand.length && !userHasTyped) {
+				rText.text(currentCommand.substring(0, currentIndex + 1));
+				currentIndex++;
+			} else {
+				clearInterval(typewriterInterval);
+				isTypingFlavor = false;
+			}
+		}, 50 + Math.random() * 50);
 	}
 	
-	// Start typing after a short delay
-	setTimeout(typeWriter, 2000);
+	function stopFlavorText() {
+		clearInterval(typewriterInterval);
+		isTypingFlavor = false;
+		rText.empty();
+	}
+	
+	function startInactivityTimer() {
+		clearTimeout(inactivityTimer);
+		inactivityTimer = setTimeout(function() {
+			if (terminalInput.val().trim() === "") {
+				userHasTyped = false;
+				startFlavorText();
+			}
+		}, 5000);
+	}
+	
+	function addTerminalLine(command, output) {
+		var newLine = $('<div class="terminal-line"><span class="prompt">$</span> <span class="command">' + 
+			command + '</span></div>');
+		
+		if (output) {
+			var outputDiv = $('<div class="command-output">' + output.replace(/\n/g, '<br>') + '</div>');
+			newLine.append(outputDiv);
+		}
+		
+		currentLine.before(newLine);
+		
+		// Scroll to bottom
+		var terminal = $("#terminal");
+		terminal.scrollTop(terminal[0].scrollHeight);
+	}
+	
+	function executeCommand(cmd) {
+		var command = cmd.toLowerCase().trim();
+		var output = "";
+		
+		if (commands[command]) {
+			output = commands[command]();
+		} else if (command === "") {
+			// Empty command, just add a prompt line
+			return;
+		} else {
+			output = "Command not found: " + cmd + "\nType 'help' or 'ls' to see available commands.";
+		}
+		
+		addTerminalLine(cmd, output);
+	}
+	
+	function clearTerminal() {
+		content.find('.terminal-line:not(#current-line)').remove();
+		content.find('.command-output').remove();
+	}
+	
+	// Special effects
+	function addGlitchEffect() {
+		$('#crt-screen').addClass('glitch-effect');
+		setTimeout(function() {
+			$('#crt-screen').removeClass('glitch-effect');
+		}, 1000);
+	}
+	
+	function createMatrixEffect() {
+		var matrix = $('<div id="matrix-effect"></div>');
+		$('body').append(matrix);
+		
+		// Create matrix rain
+		for (var i = 0; i < 20; i++) {
+			var column = $('<div class="matrix-column"></div>');
+			column.css({
+				left: Math.random() * 100 + '%',
+				animationDelay: Math.random() * 2 + 's'
+			});
+			
+			// Add random characters
+			var chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+			for (var j = 0; j < 20; j++) {
+				var char = $('<span>' + chars.charAt(Math.floor(Math.random() * chars.length)) + '</span>');
+				char.css({
+					animationDelay: (j * 0.1) + 's'
+				});
+				column.append(char);
+			}
+			
+			matrix.append(column);
+		}
+		
+		setTimeout(function() {
+			matrix.remove();
+		}, 3000);
+	}
+	
+	function createPartyEffect() {
+		var party = $('<div id="party-effect"></div>');
+		$('body').append(party);
+		
+		// Create confetti
+		for (var i = 0; i < 50; i++) {
+			var confetti = $('<div class="confetti"></div>');
+			confetti.css({
+				left: Math.random() * 100 + '%',
+				backgroundColor: 'hsl(' + Math.random() * 360 + ', 100%, 70%)',
+				animationDelay: Math.random() * 2 + 's'
+			});
+			party.append(confetti);
+		}
+		
+		// Flash screen colors
+		var colors = ['theme-green', 'theme-blue', 'theme-lavender', 'theme-gold'];
+		var colorIndex = 0;
+		var colorInterval = setInterval(function() {
+			body.removeClass('theme-orange theme-green theme-lavender theme-blue theme-gold');
+			body.addClass(colors[colorIndex % colors.length]);
+			colorIndex++;
+		}, 200);
+		
+		setTimeout(function() {
+			clearInterval(colorInterval);
+			applyTheme(currentTheme);
+			party.remove();
+		}, 3000);
+	}
+	
+	function createHackingEffect() {
+		var hack = $('<div id="hack-effect"><div class="hack-text">HACKING IN PROGRESS...</div></div>');
+		$('body').append(hack);
+		
+		var hackTexts = [
+			'Bypassing firewall...',
+			'Cracking encryption...',
+			'Accessing mainframe...',
+			'Downloading files...',
+			'Erasing traces...',
+			'Access granted.'
+		];
+		
+		var textIndex = 0;
+		var hackInterval = setInterval(function() {
+			if (textIndex < hackTexts.length) {
+				hack.find('.hack-text').text(hackTexts[textIndex]);
+				textIndex++;
+			} else {
+				clearInterval(hackInterval);
+				setTimeout(function() {
+					hack.remove();
+				}, 1000);
+			}
+		}, 500);
+	}
+	
+	function createCoffeeEffect() {
+		var coffee = $('<div id="coffee-effect">☕</div>');
+		$('body').append(coffee);
+		
+		setTimeout(function() {
+			coffee.addClass('coffee-animate');
+		}, 100);
+		
+		setTimeout(function() {
+			coffee.remove();
+		}, 2000);
+	}
+	
+	// Input event handlers
+	terminalInput.on('focus', function() {
+		stopFlavorText();
+		clearTimeout(inactivityTimer);
+	});
+	
+	terminalInput.on('input', function() {
+		var hasInput = $(this).val().length > 0;
+		$(this).toggleClass('has-input', hasInput);
+		
+		if (!userHasTyped && hasInput) {
+			userHasTyped = true;
+			stopFlavorText();
+		}
+		
+		clearTimeout(inactivityTimer);
+		
+		if (!hasInput) {
+			startInactivityTimer();
+		}
+	});
+	
+	terminalInput.on('keypress', function(e) {
+		if (e.which === 13) { // Enter key
+			var command = $(this).val();
+			executeCommand(command);
+			$(this).val('').removeClass('has-input');
+			userHasTyped = false;
+			startInactivityTimer();
+		}
+	});
+	
+	terminalInput.on('blur', function() {
+		if ($(this).val().trim() === '') {
+			$(this).removeClass('has-input');
+			startInactivityTimer();
+		}
+	});
+	
+	// Focus input when clicking anywhere on the terminal
+	$('#terminal').on('click', function() {
+		terminalInput.focus();
+	});
+	
+	// Start initial flavor text
+	setTimeout(function() {
+		startFlavorText();
+	}, 2000);
 	
 	// Add some interactive terminal effects
 	$(document).on('click', '.project-link', function(e) {
@@ -94,14 +424,102 @@ $(function() {
 	}, 3000);
 });
 
-// Add CSS for link click effect and theme change effect
+// Add CSS for effects
 $('<style>').prop('type', 'text/css').html(`
+	.command-output {
+		margin: 4px 0 8px 20px;
+		color: #aaa;
+		white-space: pre-wrap;
+	}
+	
 	.link-click-effect {
 		animation: linkClick 0.1s ease-out !important;
 	}
 	
 	.theme-change-effect {
 		animation: themeChange 0.2s ease-out !important;
+	}
+	
+	.glitch-effect {
+		animation: glitch 1s ease-out !important;
+	}
+	
+	#matrix-effect {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.8);
+		z-index: 9999;
+		pointer-events: none;
+	}
+	
+	.matrix-column {
+		position: absolute;
+		top: -100%;
+		width: 20px;
+		height: 100%;
+		color: #00ff00;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 14px;
+		animation: matrixFall 3s linear infinite;
+	}
+	
+	.matrix-column span {
+		display: block;
+		animation: matrixChar 0.1s linear infinite;
+	}
+	
+	#party-effect {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 9999;
+		pointer-events: none;
+	}
+	
+	.confetti {
+		position: absolute;
+		width: 10px;
+		height: 10px;
+		top: -10px;
+		animation: confettiFall 3s linear infinite;
+	}
+	
+	#hack-effect {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background: rgba(0, 0, 0, 0.9);
+		color: #00ff00;
+		padding: 40px;
+		border: 2px solid #00ff00;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 18px;
+		z-index: 9999;
+		text-align: center;
+		animation: hackPulse 0.5s ease-in-out infinite alternate;
+	}
+	
+	#coffee-effect {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: 80px;
+		z-index: 9999;
+		pointer-events: none;
+		opacity: 0;
+		transition: all 2s ease;
+	}
+	
+	#coffee-effect.coffee-animate {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1.5) rotate(360deg);
 	}
 	
 	@keyframes linkClick {
@@ -113,5 +531,38 @@ $('<style>').prop('type', 'text/css').html(`
 		0% { filter: brightness(1.5) contrast(1.5) saturate(1.5); }
 		50% { filter: brightness(0.8) contrast(0.8) saturate(0.5); }
 		100% { filter: brightness(1) contrast(1.1) saturate(1); }
+	}
+	
+	@keyframes glitch {
+		0%, 100% { transform: translate(0); }
+		10% { transform: translate(-2px, 2px); }
+		20% { transform: translate(2px, -2px); }
+		30% { transform: translate(-2px, -2px); }
+		40% { transform: translate(2px, 2px); }
+		50% { transform: translate(-2px, 2px); }
+		60% { transform: translate(2px, -2px); }
+		70% { transform: translate(-2px, -2px); }
+		80% { transform: translate(2px, 2px); }
+		90% { transform: translate(-2px, 2px); }
+	}
+	
+	@keyframes matrixFall {
+		0% { top: -100%; }
+		100% { top: 100%; }
+	}
+	
+	@keyframes matrixChar {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.5; }
+	}
+	
+	@keyframes confettiFall {
+		0% { transform: translateY(-100vh) rotate(0deg); }
+		100% { transform: translateY(100vh) rotate(360deg); }
+	}
+	
+	@keyframes hackPulse {
+		0% { box-shadow: 0 0 10px #00ff00; }
+		100% { box-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00; }
 	}
 `).appendTo('head');
