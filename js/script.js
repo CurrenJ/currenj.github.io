@@ -78,10 +78,8 @@ $(function() {
 				   "  ls, dir     - List available commands\n" +
 				   "  help        - Show this help message\n" +
 				   "  whoami      - Display user information\n" +
-				   "  matrix      - Enter the Matrix\n" +
 				   "  clear       - Clear the terminal\n" +
 				   "  party       - Start a celebration\n" +
-				   "  hack        - Initiate hacking sequence\n" +
 				   "  coffee      - Take a coffee break\n" +
 				   "  cat joke.txt - Display a random joke\n" +
 				   "  fortune     - Get your fortune\n" +
@@ -102,10 +100,6 @@ $(function() {
 				   "Role: Developer, Creator, Dreamer\n" +
 				   "Status: Always coding something awesome\n" +
 				   "Location: Somewhere between reality and code";
-		},
-		'matrix': function() {
-			createMatrixEffect();
-			return "Welcome to the Matrix, Neo...";
 		},
 		'clear': function() {
 			clearTerminal();
@@ -252,36 +246,6 @@ $(function() {
 		setTimeout(function() {
 			$('#crt-screen').removeClass('glitch-effect');
 		}, 1000);
-	}
-	
-	function createMatrixEffect() {
-		var matrix = $('<div id="matrix-effect"></div>');
-		$('body').append(matrix);
-		
-		// Create matrix rain
-		for (var i = 0; i < 20; i++) {
-			var column = $('<div class="matrix-column"></div>');
-			column.css({
-				left: Math.random() * 100 + '%',
-				animationDelay: Math.random() * 2 + 's'
-			});
-			
-			// Add random characters
-			var chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-			for (var j = 0; j < 20; j++) {
-				var char = $('<span>' + chars.charAt(Math.floor(Math.random() * chars.length)) + '</span>');
-				char.css({
-					animationDelay: (j * 0.1) + 's'
-				});
-				column.append(char);
-			}
-			
-			matrix.append(column);
-		}
-		
-		setTimeout(function() {
-			matrix.remove();
-		}, 3000);
 	}
 	
 	function createPartyEffect() {
@@ -567,33 +531,6 @@ $('<style>').prop('type', 'text/css').html(`
 		animation: glitch 1s ease-out !important;
 	}
 	
-	#matrix-effect {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(0, 0, 0, 0.8);
-		z-index: 9999;
-		pointer-events: none;
-	}
-	
-	.matrix-column {
-		position: absolute;
-		top: -100%;
-		width: 20px;
-		height: 100%;
-		color: #00ff00;
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 14px;
-		animation: matrixFall 3s linear infinite;
-	}
-	
-	.matrix-column span {
-		display: block;
-		animation: matrixChar 0.1s linear infinite;
-	}
-	
 	#party-effect {
 		position: fixed;
 		top: 0;
@@ -663,16 +600,6 @@ $('<style>').prop('type', 'text/css').html(`
 		70% { transform: translate(-2px, -2px); }
 		80% { transform: translate(2px, 2px); }
 		90% { transform: translate(-2px, 2px); }
-	}
-	
-	@keyframes matrixFall {
-		0% { top: -100%; }
-		100% { top: 100%; }
-	}
-	
-	@keyframes matrixChar {
-		0%, 100% { opacity: 1; }
-		50% { opacity: 0.5; }
 	}
 	
 	@keyframes hackPulse {
