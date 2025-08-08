@@ -2,18 +2,59 @@ $(function() {
 	console.log("Slideshow ready!");
 	
 	// Image collection - using a mix of artistic and personal images
+	// Each entry now includes path, title, and subtitle for text overlays
 	
 	var images = [
-		'slideshow/arid0.png',
-		'slideshow/arid1.png',
-		'slideshow/cave0.png',
-		'slideshow/cave1.png',
-		'slideshow/cave2.png',
-		'slideshow/cave3.png',
-		'slideshow/cave4.png',
-		'slideshow/cave5.png',
-		'slideshow/cave6.png',
-		'slideshow/tanks.png',
+		{
+			path: 'slideshow/arid0.png',
+			title: 'Desert Landscape',
+			subtitle: 'Vast arid terrain awaits exploration'
+		},
+		{
+			path: 'slideshow/arid1.png',
+			title: 'Desert Outpost',
+			subtitle: 'A solitary structure in the wasteland'
+		},
+		{
+			path: 'slideshow/cave0.png',
+			title: 'Underground Cavern',
+			subtitle: 'Mysterious depths below the surface'
+		},
+		{
+			path: 'slideshow/cave1.png',
+			title: 'Crystal Cave',
+			subtitle: 'Sparkling formations in the darkness'
+		},
+		{
+			path: 'slideshow/cave2.png',
+			title: 'Deep Tunnels',
+			subtitle: 'Ancient passages carved by time'
+		},
+		{
+			path: 'slideshow/cave3.png',
+			title: 'Lava Chamber',
+			subtitle: 'Molten rock illuminates the cavern'
+		},
+		{
+			path: 'slideshow/cave4.png',
+			title: 'Underground Lake',
+			subtitle: 'Still waters in the subterranean world'
+		},
+		{
+			path: 'slideshow/cave5.png',
+			title: 'Stone Formations',
+			subtitle: 'Natural architecture sculpted by nature'
+		},
+		{
+			path: 'slideshow/cave6.png',
+			title: 'Hidden Sanctuary',
+			subtitle: 'A secret chamber deep underground'
+		},
+		{
+			path: 'slideshow/tanks.png',
+			title: 'Battle Tanks',
+			subtitle: 'Armored vehicles ready for combat'
+		}
 	];
 	
 	var shuffledImages = [];
@@ -42,17 +83,23 @@ $(function() {
 		var slideshow = $('#slideshow');
 		
 		// Create slide elements
-		shuffledImages.forEach(function(imagePath, index) {
+		shuffledImages.forEach(function(imageData, index) {
 			var slide = $('<div class="slide"></div>');
-			var img = $('<img>').attr('src', imagePath).attr('alt', 'Slide ' + (index + 1));
+			var img = $('<img>').attr('src', imageData.path).attr('alt', 'Slide ' + (index + 1));
 			
 			// Handle image load errors gracefully
 			img.on('error', function() {
-				console.log('Failed to load image: ' + imagePath);
+				console.log('Failed to load image: ' + imageData.path);
 				$(this).attr('src', 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=');
 			});
 			
-			slide.append(img);
+			// Create text overlay
+			var textOverlay = $('<div class="slide-text-overlay"></div>');
+			var title = $('<h1 class="slide-title"></h1>').text(imageData.title);
+			var subtitle = $('<h2 class="slide-subtitle"></h2>').text(imageData.subtitle);
+			
+			textOverlay.append(title).append(subtitle);
+			slide.append(img).append(textOverlay);
 			slideshow.append(slide);
 		});
 		
@@ -112,10 +159,13 @@ $(function() {
 		shuffledImages = shuffleArray(images);
 		var slides = $('.slide');
 		
-		// Update image sources with new shuffled order
+		// Update image sources and text with new shuffled order
 		slides.each(function(index) {
 			if (index < shuffledImages.length) {
-				$(this).find('img').attr('src', shuffledImages[index]);
+				var imageData = shuffledImages[index];
+				$(this).find('img').attr('src', imageData.path);
+				$(this).find('.slide-title').text(imageData.title);
+				$(this).find('.slide-subtitle').text(imageData.subtitle);
 			}
 		});
 	}
