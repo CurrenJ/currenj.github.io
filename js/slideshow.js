@@ -120,7 +120,7 @@ $(function() {
 			}
 		}, slideDuration);
 
-		// Ensure the first slide is active when starting
+		// Only ensure the first slide is active if no slides are currently active
 		if ($('.slide.active').length === 0) {
 			$('.slide').removeClass('active');
 			$('.slide').first().addClass('active');
@@ -182,6 +182,7 @@ $(function() {
 			button.html('▶️').attr('title', 'Play');
 			if (slideInterval) {
 				clearInterval(slideInterval);
+				slideInterval = null;
 			}
 		}
 	}
