@@ -7,53 +7,53 @@ $(function() {
 	var images = [
 		{
 			path: 'slideshow/arid0.png',
-			title: 'Desert Landscape',
-			subtitle: 'Vast arid terrain awaits exploration'
+			title: 'Arid Cave',
+			subtitle: 'Sandy.'
 		},
 		{
 			path: 'slideshow/arid1.png',
-			title: 'Desert Outpost',
-			subtitle: 'A solitary structure in the wasteland'
+			title: 'Arid Cave',
+			subtitle: 'Sandy.'
 		},
 		{
 			path: 'slideshow/cave0.png',
-			title: 'Underground Cavern',
-			subtitle: 'Mysterious depths below the surface'
+			title: 'Ice Cave',
+			subtitle: 'Don\'t slip!'
 		},
 		{
 			path: 'slideshow/cave1.png',
-			title: 'Crystal Cave',
-			subtitle: 'Sparkling formations in the darkness'
+			title: 'Lusher Caves',
+			subtitle: 'Check for ticks.'
 		},
 		{
 			path: 'slideshow/cave2.png',
-			title: 'Deep Tunnels',
-			subtitle: 'Ancient passages carved by time'
+			title: 'Lusher Caves',
+			subtitle: 'Check for ticks.'
 		},
 		{
 			path: 'slideshow/cave3.png',
-			title: 'Lava Chamber',
-			subtitle: 'Molten rock illuminates the cavern'
+			title: 'Ice Cave',
+			subtitle: 'Don\'t slip!'
 		},
 		{
 			path: 'slideshow/cave4.png',
-			title: 'Underground Lake',
-			subtitle: 'Still waters in the subterranean world'
+			title: 'Ice Cave',
+			subtitle: 'Don\'t slip!'
 		},
 		{
 			path: 'slideshow/cave5.png',
-			title: 'Stone Formations',
-			subtitle: 'Natural architecture sculpted by nature'
+			title: 'Volcanic Cave',
+			subtitle: 'Mind the gaps.'
 		},
 		{
 			path: 'slideshow/cave6.png',
-			title: 'Hidden Sanctuary',
-			subtitle: 'A secret chamber deep underground'
+			title: 'Volcanic Cave',
+			subtitle: 'Mind the gaps.'
 		},
 		{
 			path: 'slideshow/tanks.png',
-			title: 'Battle Tanks',
-			subtitle: 'Armored vehicles ready for combat'
+			title: 'Fishin\' n Tanks',
+			subtitle: 'Catch \'em all!'
 		}
 	];
 	
