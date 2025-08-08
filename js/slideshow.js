@@ -2,18 +2,59 @@ $(function() {
 	console.log("Slideshow ready!");
 	
 	// Image collection - using a mix of artistic and personal images
+	// Each entry now includes path, title, and subtitle for text overlays
 	
 	var images = [
-		'slideshow/arid0.png',
-		'slideshow/arid1.png',
-		'slideshow/cave0.png',
-		'slideshow/cave1.png',
-		'slideshow/cave2.png',
-		'slideshow/cave3.png',
-		'slideshow/cave4.png',
-		'slideshow/cave5.png',
-		'slideshow/cave6.png',
-		'slideshow/tanks.png',
+		{
+			path: 'slideshow/arid0.png',
+			title: 'Arid Cave',
+			subtitle: 'Sandy.'
+		},
+		{
+			path: 'slideshow/arid1.png',
+			title: 'Arid Cave',
+			subtitle: 'Sandy.'
+		},
+		{
+			path: 'slideshow/cave0.png',
+			title: 'Ice Cave',
+			subtitle: 'Don\'t slip!'
+		},
+		{
+			path: 'slideshow/cave1.png',
+			title: 'Lusher Caves',
+			subtitle: 'Check for ticks.'
+		},
+		{
+			path: 'slideshow/cave2.png',
+			title: 'Lusher Caves',
+			subtitle: 'Check for ticks.'
+		},
+		{
+			path: 'slideshow/cave3.png',
+			title: 'Ice Cave',
+			subtitle: 'Don\'t slip!'
+		},
+		{
+			path: 'slideshow/cave4.png',
+			title: 'Ice Cave',
+			subtitle: 'Don\'t slip!'
+		},
+		{
+			path: 'slideshow/cave5.png',
+			title: 'Volcanic Cave',
+			subtitle: 'Mind the gaps.'
+		},
+		{
+			path: 'slideshow/cave6.png',
+			title: 'Volcanic Cave',
+			subtitle: 'Mind the gaps.'
+		},
+		{
+			path: 'slideshow/tanks.png',
+			title: 'Fishin\' n Tanks',
+			subtitle: 'Catch \'em all!'
+		}
 	];
 	
 	var shuffledImages = [];
@@ -42,17 +83,23 @@ $(function() {
 		var slideshow = $('#slideshow');
 		
 		// Create slide elements
-		shuffledImages.forEach(function(imagePath, index) {
+		shuffledImages.forEach(function(imageData, index) {
 			var slide = $('<div class="slide"></div>');
-			var img = $('<img>').attr('src', imagePath).attr('alt', 'Slide ' + (index + 1));
+			var img = $('<img>').attr('src', imageData.path).attr('alt', 'Slide ' + (index + 1));
 			
 			// Handle image load errors gracefully
 			img.on('error', function() {
-				console.log('Failed to load image: ' + imagePath);
+				console.log('Failed to load image: ' + imageData.path);
 				$(this).attr('src', 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBmb3VuZDwvdGV4dD48L3N2Zz4=');
 			});
 			
-			slide.append(img);
+			// Create text overlay
+			var textOverlay = $('<div class="slide-text-overlay"></div>');
+			var title = $('<h1 class="slide-title"></h1>').text(imageData.title);
+			var subtitle = $('<h2 class="slide-subtitle"></h2>').text(imageData.subtitle);
+			
+			textOverlay.append(title).append(subtitle);
+			slide.append(img).append(textOverlay);
 			slideshow.append(slide);
 		});
 		
@@ -73,7 +120,7 @@ $(function() {
 			}
 		}, slideDuration);
 
-		// Ensure the first slide is active when starting
+		// Only ensure the first slide is active if no slides are currently active
 		if ($('.slide.active').length === 0) {
 			$('.slide').removeClass('active');
 			$('.slide').first().addClass('active');
@@ -112,10 +159,13 @@ $(function() {
 		shuffledImages = shuffleArray(images);
 		var slides = $('.slide');
 		
-		// Update image sources with new shuffled order
+		// Update image sources and text with new shuffled order
 		slides.each(function(index) {
 			if (index < shuffledImages.length) {
-				$(this).find('img').attr('src', shuffledImages[index]);
+				var imageData = shuffledImages[index];
+				$(this).find('img').attr('src', imageData.path);
+				$(this).find('.slide-title').text(imageData.title);
+				$(this).find('.slide-subtitle').text(imageData.subtitle);
 			}
 		});
 	}
@@ -132,6 +182,7 @@ $(function() {
 			button.html('▶️').attr('title', 'Play');
 			if (slideInterval) {
 				clearInterval(slideInterval);
+				slideInterval = null;
 			}
 		}
 	}
