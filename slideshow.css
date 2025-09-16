@@ -110,6 +110,49 @@ html, body {
 	background: rgba(0, 0, 0, 0.7);
 }
 
+/* Project links overlay - bottom left */
+#project-links-overlay {
+	position: fixed;
+	bottom: 20px;
+	left: 20px;
+	z-index: 1000;
+	display: flex;
+	gap: 8px;
+	opacity: 0.7;
+	transition: opacity 0.3s ease;
+}
+
+#project-links-overlay:hover {
+	opacity: 1;
+}
+
+#project-links-overlay a {
+	background: rgba(0, 0, 0, 0.5);
+	border: none;
+	color: rgba(255, 255, 255, 0.9);
+	width: 44px;
+	height: 44px;
+	border-radius: 22px;
+	cursor: pointer;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	backdrop-filter: blur(10px);
+	transition: all 0.3s ease;
+	text-decoration: none;
+}
+
+#project-links-overlay a:hover {
+	background: rgba(0, 0, 0, 0.7);
+	color: rgba(255, 255, 255, 1);
+	transform: scale(1.1);
+}
+
+#project-links-overlay a:active {
+	transform: scale(0.95);
+}
+
 /* Controls overlay - bottom right */
 #controls-overlay {
 	position: fixed;
@@ -172,6 +215,16 @@ html, body {
 		background: rgba(255, 255, 255, 1);
 	}
 	
+	#project-links-overlay a {
+		background: rgba(255, 255, 255, 0.9);
+		color: rgba(0, 0, 0, 0.9);
+	}
+	
+	#project-links-overlay a:hover {
+		background: rgba(255, 255, 255, 1);
+		color: rgba(0, 0, 0, 1);
+	}
+	
 	#controls-overlay button {
 		background: rgba(255, 255, 255, 0.9);
 		color: rgba(0, 0, 0, 0.9);
@@ -214,6 +267,16 @@ html, body {
 		background: rgba(0, 0, 0, 0.9);
 	}
 	
+	#project-links-overlay a {
+		background: rgba(0, 0, 0, 0.7);
+		color: rgba(255, 255, 255, 0.9);
+	}
+	
+	#project-links-overlay a:hover {
+		background: rgba(0, 0, 0, 0.9);
+		color: rgba(255, 255, 255, 1);
+	}
+	
 	#controls-overlay button {
 		background: rgba(0, 0, 0, 0.7);
 		color: rgba(255, 255, 255, 0.9);
@@ -235,6 +298,19 @@ html, body {
 	#back-link {
 		font-size: 14px;
 		padding: 10px 15px;
+	}
+	
+	#project-links-overlay {
+		bottom: 15px;
+		left: 15px;
+		gap: 10px;
+	}
+	
+	#project-links-overlay a {
+		width: 50px;
+		height: 50px;
+		border-radius: 25px;
+		font-size: 16px;
 	}
 	
 	#controls-overlay {
@@ -267,11 +343,13 @@ html, body {
 /* Hide overlays on touch devices when not active */
 @media (hover: none) {
 	#nav-overlay,
+	#project-links-overlay,
 	#controls-overlay {
 		opacity: 0.5;
 	}
 	
 	#slideshow-container:active #nav-overlay,
+	#slideshow-container:active #project-links-overlay,
 	#slideshow-container:active #controls-overlay {
 		opacity: 1;
 	}
